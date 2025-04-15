@@ -23,7 +23,35 @@ import './public-part/auth/auth.js';
 
 $(document).ready(function() {
     $(".datepicker").datepicker({
-        format: 'mm.dd.yyyy',
+        format: 'dd.mm.yyyy',
         autoclose: true,
     }); // Initialize the datepicker
+
+    /* Global linking */
+    $("body").on('click', '.go-to', function (){
+        let link = $(this).attr('link');
+        let hasClass = $(this).hasClass('new-window');
+
+        setTimeout(function (){
+            if(hasClass) window.open(link, '_blank');
+            else window.location = link;
+        }, 100);
+    });
+
+
+    $('.select2').select2({
+        placeholder: 'Select or add options',
+        tags: true // Enable adding new options
+    });
+    $('.single-select2').select2({
+        placeholder: "Odaberite", // Optional placeholder
+        language: {
+            noResults: function () {
+                return "Nema pronađenih rezultata";
+            }
+        },
+        escapeMarkup: function (markup) {
+            return markup; // Allow custom HTML (if needed)
+        }
+    });
 });

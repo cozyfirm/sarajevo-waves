@@ -43,7 +43,7 @@ class AuthController extends Controller{
                 ]);
             }
 
-            $uri = route('system.home');
+            $uri = route('system.admin.home');
             if($user->role == 'user') $uri = route('dashboard.welcome');
 
             return json_encode([

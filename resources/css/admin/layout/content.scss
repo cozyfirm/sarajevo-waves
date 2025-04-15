@@ -1,5 +1,17 @@
+/**
+ *  Loading wrapper style
+ */
+.loading{
+    position: fixed; left: 0px; top: 0px; width: 100%; height: 100%; background: #0006; z-index: 10000; display: none;
+    img{
+        position: absolute; left: 0px; top:0px; right: 0px; bottom: 0px; margin: auto;
+    }
+}
+/**
+ *  Main content style
+ */
 .main-content{
-    position:relative; left:320px; width:calc(100% - 320px); min-height: calc(100% - 80px); top:80px; background: #F5F5F5;
+    position:relative; left:320px; width:calc(100% - 320px); min-height: calc(100% - 80px); top:80px; background: #F5F5F5; padding-bottom: 32px;
 
     .content-wrapper{
         position: relative; top: 30px; left:30px; width: calc(100% - 60px); border:1px solid rgba(0,0,0,0.1); margin-bottom: 30px; margin-top: 30px;
@@ -14,12 +26,68 @@
     }
     .content-wrapper-bs{border:none;}
     .content-wrapper-p-15{padding: 15px;}
+    .preview-content-wrapper{
+        border: none; padding: 0px; display: flex; justify-content: space-between; gap: 32px;
+        .form__info{
+            position: relative; width: calc(100% - 460px); display: flex; flex-direction: column;
+            .form__info__inner{
+                position: relative; padding: 24px; background: #FFFFFF; width: 100%; border-radius:4px; box-shadow: 0px 6px 24px 0px rgba(53, 55, 81, 0.06);
 
+                .success__message, .error__message{
+                    position: relative; width: 100%; padding: 8px 16px; background: #00EBC1; color: #FFFFFF; border-radius: 4px; margin-bottom: 16px;
+                }
+                .error__message{ background: #C84040 }
+
+                .custom-hr{
+                    position: relative; width: 100%; height: 1px; background: $lightGrey; margin: 32px 0px;
+                }
+                .training__areas, .training__authors, .instance__trainers, .training__participants, .shared_participants, .tp__participants, .mp__certificates, .mp__areas{
+                    position: relative; width: 100%; display: flex; flex-wrap: wrap; gap: 16px;
+                    h4{color: $darkGrey; font-size:20px; margin:0px; }
+                    .areas, .authors, .trainers, .sp__wrapper, .tp__participants, .mp__cer__inner, .mp__area__inner{
+                        &:hover{cursor: pointer; }
+                        position: relative; width: 100%; display: flex; gap: 8px; flex-wrap: wrap;
+                        .area__w, .author__w, .trainer__w, .participant_w, .certificate{
+                            padding: 2px 8px; background: $yellow; border-radius:4px;
+                            p{
+                                margin: 0px; padding: 0px; color: #FFFFFF; font-size:14px;
+                            }
+                        }
+                        .trainer__w{
+                            &:hover{cursor: pointer; }
+                        }
+                    }
+                }
+                .training__authors{
+                    h4{color: $darkGrey; }
+                }
+                .training__description, .analysis__description{
+                    position: relative; width: 100%; padding: 16px; border: 1px solid rgba(0,0,0,0.1); border-radius: 4px;
+                    font-size: 14px;
+                }
+            }
+        }
+        .right__menu__info{
+            position: sticky; width: 460px; gap: 16px; display: flex; flex-wrap: wrap; // flex-direction: column;
+
+            top: 112px;
+            position: -webkit-sticky; /* for Safari */
+            position: sticky;
+            align-self: flex-start; /* <-- this is the fix */
+        }
+    }
 
     /* Content menu */
     .content-menu{
         position: relative; left: 0px; top: 30px; width: calc(100% - 0px); height: 110px; display: inline-flex; justify-content: space-between; border-bottom: 1px solid rgba(0,0,0,0.1);
 
+        &:hover{
+            .page-menu-icon-w{
+                i{color: $yellow;}
+                .normal-icon{display: none;}
+                .yellow-icon{display: initial;}
+            }
+        }
         .page-menu-icon-w{
             position: relative; left: 30px; top: 0px; width: 80px; height: 80px; background: #ffffff; display: inline-flex;
             justify-content: center; align-items: center;
@@ -27,8 +95,13 @@
 
             //noinspection SassScssResolvedByNameOnly
             i{
-                font-size: 40px; color:$secondaryColor;
+                font-size: 40px; color:$grey; transition: 0.2s all;
             }
+            img{
+                max-height: 40px; max-width:40px;
+            }
+            .normal-icon{display: initial;}
+            .yellow-icon{display: none;}
         }
 
         .page-menu-content{
@@ -56,13 +129,23 @@
                 .pmc-right-content{
                     .pm-btn{
                         box-shadow: 0 0.125rem 0.625rem rgba(52, 58, 64, 0.4), 0 0.0625rem 0.125rem rgba(52, 58, 64, 0.5);
-                        margin-left: 10px; height: 34px; display: inline-flex;
+
+                        margin-left: 4px; height: 34px; display: inline-flex; transition: 0.2s all;
+
+
 
                         i{
-                            font-size: 14px; margin-top: 4px;
+                            font-size: 14px; margin-top: 4px; transition: 0.2s all;
                         }
                         span{
                             font-size: 14px; margin: 0px; padding: 0px; display: inline-flex; font-family: 'Nunito', sans-serif; font-weight:bold;
+                        }
+                    }
+                    .pm-btn-white{
+                        box-shadow: 0px 6px 24px 0px rgba(53, 55, 81, 0.06);
+                        &:hover{
+                            background: $yellow; box-shadow: 0 0.125rem 0.625rem rgba(237, 235, 19, 0.4), 0 0.0625rem 0.125rem rgba(237, 209, 19, 0.5);
+                            i{color: #FFFFFF;}
                         }
                     }
                     .pm-btn-5{margin-left: 5px;}
@@ -73,13 +156,14 @@
                         }
                     }
                     .pm-btn-info{
-                        background: #2090DF; color:#ffffff; box-shadow: 0 0.125rem 0.625rem rgba(34, 149, 221, 0.4), 0 0.0625rem 0.125rem rgba(36, 174, 219, 0.5);
+                        background: $yellow; box-shadow: 0 0.125rem 0.625rem rgba(237, 235, 19, 0.4), 0 0.0625rem 0.125rem rgba(237, 209, 19, 0.5);
                         span{
-                            margin-left: 10px;
+                            margin-left: 10px; color: #FFFFFF; padding: 0px; margin-top: 0px;
                         }
+                        i{color: #FFFFFF;}
                     }
-                    .pm-btn-edit{
-                        background: #51585e; color:#ffffff; box-shadow: 0 0.125rem 0.625rem rgba(34, 149, 221, 0.4), 0 0.0625rem 0.125rem rgba(36, 174, 219, 0.5);
+                    .pm-btn-edit, .pm-btn-trash{
+                        background: #FFFFFF; color:#333333;
                         span{
                             margin-left: 10px;
                         }

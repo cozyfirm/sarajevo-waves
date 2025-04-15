@@ -75,7 +75,7 @@ class UsersController extends Controller{
     }
 
     public function preview ($username): View{
-        return view($this->_path . 'create', [
+        return view($this->_path . 'preview', [
             'preview' => true,
             'user' => User::where('username', '=', $username)->first(),
             'countries' => Country::pluck('name_ba', 'id')

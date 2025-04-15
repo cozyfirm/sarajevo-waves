@@ -14,10 +14,17 @@ body{
 }
 
 
-
+@import "../style/colors";
+@import "layout/snippets/form-and-select";
+@import "layout/snippets/default";
+@import "layout/snippets/right-menu";
 @import "layout/menu";
 @import "layout/content";
 @import "layout/filters";
+
+@import "layout/snippets/width";
+
+@import "layout/dashboard";
 
 .text{
     color:red;
