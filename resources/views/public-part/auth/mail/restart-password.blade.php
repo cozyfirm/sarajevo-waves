@@ -1,14 +1,19 @@
 @component('mail::message')
-# Oporavak korisničke šifre
 
-Poštovani/a {{ $_name }},
+Poštovani/a **{{ $_name }}**,
 
-Sa ovog email-a je kreiran zahtjev za oporavak korisničke šifre. Da biste oporavili Vašu korisničku šifru, molimo Vas da
-to učinite putem <a href="{{ route('auth.new-password', ['token' => $_token]) }}">ovog</a> linka.
+Zaprimili smo zahtjev za oporavak lozinke za Vaš korisnički račun na **{{ config('app.name') }}**.
 
-Napomena: Ukoliko je neko drugi inicirao oporavak šifre u Vaše ime, molimo da nas kontaktirate!
+Ukoliko ste Vi inicirali ovaj zahtjev, lozinku možete postaviti klikom na dugme ispod.
 
-Hvala Vam što koristite naš sistem!
-Ugodan ostatak dana,<br>
-<a href="{{ env('APP_DOMAIN') }}"> Helem Nejse Talent akademija </a>
+@component('mail::button', ['url' => route('auth.new-password', ['token' => $_token])])
+    Postavi novu lozinku
+@endcomponent
+
+---
+
+Ako niste Vi inicirali zahtjev za oporavak lozinke, slobodno zanemarite ovu poruku ili nas kontaktirajte ukoliko smatrate da je Vaš račun ugrožen.
+
+Srdačan pozdrav,
+<a href="{{ config('app.url') }}">**{{ config('app.name') }}**</a>
 @endcomponent

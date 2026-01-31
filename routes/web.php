@@ -4,8 +4,8 @@ use App\Http\Controllers\Admin\Core\KeywordsController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\Other\FAQsController;
 use App\Http\Controllers\Admin\Users\UsersController;
+use App\Http\Controllers\PublicPart\Auth\AuthController;
 use App\Http\Controllers\PublicPart\HomeController as PublicHomeController;
-use App\Http\Controllers\Auth\AuthController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('/')->group(function () {
@@ -13,7 +13,6 @@ Route::prefix('/')->group(function () {
      *  Public part of Web App
      */
     Route::get ('/',                              [PublicHomeController::class, 'home'])->name('public.home');
-
 });
 
 /**
@@ -31,7 +30,8 @@ Route::prefix('auth')->group(function () {
     Route::get ('/verify-account/{token}',        [AuthController::class, 'verifyAccount'])->name('auth.verify-account');
 
     /* Restart password */
-    Route::get ('/restart-password',              [AuthController::class, 'restartPassword'])->name('auth.restart-password');
+    Route::get ('/account-recovery',              [AuthController::class, 'recoveryAccount'])->name('auth.account-recovery');
+    Route::get ('/account-recovery-success',      [AuthController::class, 'recoveryAccountSuccess'])->name('auth.account-recovery-success');
     Route::post('/generate-restart-token',        [AuthController::class, 'generateRestartToken'])->name('auth.generate-restart-token');
     Route::get ('/new-password/{token}',          [AuthController::class, 'newPassword'])->name('auth.new-password');
     Route::post('/generate-new-password',         [AuthController::class, 'generateNewPassword'])->name('auth.generate-new-password');

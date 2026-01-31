@@ -160,6 +160,9 @@ $(document).ready(function (){
                         Notify.Me([response['message'], "warn"]);
                     }
                     console.log(response, typeof response['link']);
+                },
+                error: function (event){
+                    $(".loading").fadeOut();
                 }
             });
         }

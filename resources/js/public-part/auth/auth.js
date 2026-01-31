@@ -2,9 +2,13 @@ import { Notify } from './../../style/layout/notify.ts';
 import { Validator } from "../../style/layout/validator.ts";
 
 $( document ).ready(function() {
-    let loginUrl = '/auth/authenticate';
+    let debug = true;
+
+    // Global urls
+    let authUri = '/auth/authenticate';
+
     /* Save account - Register form */
-    let saveAccUri  = '/auth/save-account';
+    let saveAccountUrl  = '/auth/save-account';
     /* Restart password token */
     let generateTokenUri = '/auth/generate-restart-token';
     /* Generate new password */
@@ -20,13 +24,20 @@ $( document ).ready(function() {
         let email    = $("#email").val();
         let password = $("#password").val();
 
+        let emailWrapper = $(".auth-email-wrapper");
+        let passwordWrapper = $(".auth-password-wrapper");
+
+        // Remove previous warnings
+        emailWrapper.find("span").remove();
+        passwordWrapper.find("span").remove();
+
         if(!Validator.email(email)){
-            Notify.Me(["Uneseni email nije validan!", "warn"]);
+            emailWrapper.append(function (){ return $("<span>").text("Uneseni email nije validan"); });
             return;
         }
 
         $.ajax({
-            url: loginUrl,
+            url: authUri,
             method: 'POST',
             dataType: "json",
             data: {
@@ -37,17 +48,32 @@ $( document ).ready(function() {
                 let code = response['code'];
 
                 if(code === '0000'){
-                    window.location = response['url'];
+                    Notify.Me([response['message'], "success"]);
+
+                    setTimeout(function () {
+                        window.location.href = response['url'];
+                    }, 3000); // 3 seconds
                 }else{
-                    Notify.Me([response['message'], "warn"]);
+                    // Email warnings
+                    if(code === '1101'){
+                        emailWrapper.append(function (){ return $("<span>").text(response['message']); });
+                    }
+                    // Password warnings
+                    if(code === '1102' || code === '1103'){
+                        passwordWrapper.find('.forgot-password').before($("<span>").text(response['message']));
+                    }
                 }
+            },
+            error: function (xhr) {
+                Notify.Me(["Greška prilikom obrade podataka", "danger"]);
+                /* Hide back */
+                // loader.addClass('d-none');
             }
         });
     };
 
-    $(".auth-btn").click(function () {
-        signMeIn();
-    });
+    // Sign me in button; Trigger on enter
+    $(".auth-btn").click(function () { signMeIn(); });
 
     $(document).on('keypress',function(e) {
         if(e.which === 13) {
@@ -55,131 +81,28 @@ $( document ).ready(function() {
         }
     });
 
-    /* -------------------------------------------------------------------------------------------------------------- */
-    /*
-     *  Create new profile; Steps included
+    /** ------------------------------------------------------------------------------------------------------------- */
+    /**
+     *  Create new profile
      */
+    $(".create-account-btn").click(function (){
+        $.ajax({
+            url: saveAccountUrl,
+            method: 'POST',
+            dataType: "json",
+            data: { name: $(".register-name").val(), email: $(".register-email").val(), password: $(".register-password").val() },
+            success: function success(response) {
+                if(response['code'] === '0000'){
+                    Notify.Me([response['message'], "success"]);
 
-    let step = 1;
-    let progressElements = function(){
-        $(".rf-body-element").addClass('d-none');
-        $(".rf-body-element-" + step).removeClass('d-none');
-
-        (step === 1) ? $(".create-profile-back-btn").addClass('d-none') : $(".create-profile-back-btn").removeClass('d-none');
-
-        if(step === 2){
-            $(".pl-e-bar-fill").css('width', '49.98%');
-        }else if(step === 3){
-            $(".pl-e-bar-fill").css('width', '83.3%');
-        }else if(step === 4){
-            // $(".pl-e-bar-fill").css('width', '87.5%');
-            // $(".button-wrapper").addClass('d-none');
-        }else if(step === 1){
-            $(".pl-e-bar-fill").css('width', '16.66%');
-        }
-    };
-
-    $(".create-profile-next-btn").click(function () {
-        let name   = $("#name").val();
-        let email  = $("#email").val();
-        let password   = $("#password").val();
-        let prefix = $("#prefix").val();
-        let phone  = $("#phone").val();
-        let birth_date = $("#birth_date").val();
-
-        let address  = $("#address").val();
-        let city     = $("#city").val();
-        let country  = $("#country").val();
-
-        if(step === 1){
-            if(name === ''){
-                Notify.Me(["Ime i prezime ne mogu biti prazni", "warn"]);
-                return;
-            }
-            if(!Validator.email(email)) {
-                Notify.Me(["Molimo da unesete validnu email adresu !", "warn"]);
-                return;
-            }
-            if(password === ''){
-                Notify.Me(["Molimo da unesete Vašu šifru", "warn"]);
-                return;
-            }
-            if(phone === ''){
-                Notify.Me(["Unesite Vaš broj telefona", "warn"]);
-                return;
-            }
-            if(!Validator.date($("#birth_date").val())) {
-                Notify.Me(["Molimo da odaberete datum Vašeg rođenja. Ispravan format je dd.mm.YYYY ", "warn"]);
-                return;
-            }
-            // if($("#gender").val() === ''){
-            //     Notify.Me(["Molimo da odaberete Vaš spol", "warn"]);
-            //     return;
-            // }
-        }else if(step === 2){
-            if(address === ''){
-                notify.Me(["Molimo da unesete Vašu adresu stanovanja", "warn"]);
-                return;
-            }
-            if(city === ''){
-                Notify.Me(["Molimo unesite grad u kojem živite", "warn"]);
-                return;
-            }
-            if(country === ''){
-                Notify.Me(["Molimo da odaberete državu u kojoj trenutno živite", "warn"]);
-                return;
-            }
-            // if($("#citizenship").val() === ''){
-            //     Notify.Me(["Molimo da odaberete Vaše državljanstvo", "warn"]);
-            //     return;
-            // }
-
-            /* Process request */
-            $(".pl-e-bar-fill").css('width', '83.3%');
-            $(".loading-gif").removeClass('d-none');
-
-
-            $.ajax({
-                url: saveAccUri,
-                method: 'POST',
-                dataType: "json",
-                data: {
-                    name: name,
-                    email: email,
-                    password: password,
-                    prefix: prefix,
-                    phone: phone,
-                    birth_date: birth_date,
-                    address: address,
-                    city: city,
-                    country: country
-                },
-                success: function success(response) {
-                    $(".loading-gif").addClass('d-none');
-
-                    let code = response['code'];
-
-                    if(code === '0000'){
-                        step ++;
-                        progressElements();
-
-                        /* Hide buttons */
-                        $(".back-next-btn-wrapper").addClass('d-none');
-                    }else{
-                        Notify.Me([response['message'], "warn"]);
-                    }
-                    console.log(response);
+                    setTimeout(function () {
+                        window.location.href = response['data']['url'];
+                    }, 3000); // 3 seconds
+                }else{
+                    Notify.Me([response['message'], "warn"]);
                 }
-            });
-        }
-
-        if(step < 3) step++;
-        progressElements();
-    });
-
-    $(".create-profile-back-btn").click(function () {
-        if(step > 1) step--;
-        progressElements();
+            }
+        });
     });
 
     /* -------------------------------------------------------------------------------------------------------------- */
@@ -188,7 +111,7 @@ $( document ).ready(function() {
      */
 
     let generateToken = function(){
-        let email  = $("#email");
+        let email  = $("#recovery-account-email");
         let loader = $(".loading-gif");
 
         if(!Validator.email(email.val())){
@@ -215,14 +138,18 @@ $( document ).ready(function() {
                 if(code === '0000'){
                     Notify.Me([response['message'], "success"]);
                     email.val("");
+
+                    setTimeout(function (){
+                        if(typeof response['data']['url'] !== 'undefined') window.location = response['data']['url'];
+                    }, 2000);
                 }else{
                     Notify.Me([response['message'], "warn"]);
                 }
             }
         });
     };
-    $(".generate-token-btn").click(function (){
-       generateToken();
+    $(".recovery-account-btn").click(function (){
+        generateToken();
     });
 
     /**
@@ -233,7 +160,6 @@ $( document ).ready(function() {
 
         let email  = $("#email");
         let password = $("#password");
-        let repeat   = $("#passwordRepeat");
 
         if(!Validator.email(email.val())){
             Notify.Me(["Uneseni email nije validan!", "warn"]);
@@ -250,7 +176,6 @@ $( document ).ready(function() {
             data: {
                 email: email.val(),
                 password: password.val(),
-                repeat: repeat.val(),
                 token: $("#token").val()
             },
             success: function success(response) {
@@ -272,7 +197,7 @@ $( document ).ready(function() {
             }
         });
     };
-    $(".generate-password-btn").click(function (){
+    $(".new-password-btn").click(function (){
         generateNewPassword();
     });
 });

@@ -37,14 +37,7 @@ return new class extends Migration
             /* About user - text data */
             $table->text('about')->nullable();
             /* Profile image */
-            $table->string('photo_uri')->nullable();
-
-            /* Social networks links */
-            $table->string('instagram', 100)->nullable();
-            $table->string('facebook', 100)->nullable();
-            $table->string('twitter', 100)->nullable();
-            $table->string('linkedin', 100)->nullable();
-            $table->string('web', 100)->nullable();
+            $table->string('photo')->nullable();
 
             $table->timestamps();
         });

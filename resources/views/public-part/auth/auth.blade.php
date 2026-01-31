@@ -1,67 +1,65 @@
-@extends('public-part.auth.layout.auth-layout')
-<!-- Title -->
-@section('title') {{ __('Prijavite se') }} @endsection
+@extends('public-part.auth.layout.layout')
+@section('title') {{ Helper::getPageTitle(__('Prijavite se')) }} @endsection
 
-<!-- Main section -->
 @section('content')
-    <div class="auth-form">
-        <div class="af-image">
-            <img src="{{ asset('files/images/logo.png') }}" alt="">
-        </div>
-        <div class="af-form">
-            <div class="aff-container">
-                <div class="aff-header">
-                    <h1 class="tb-color mb-4"> <b>{{ __('Welcome') }}</b> </h1>
+    <div class="auth-wrapper">
+        <div class="aw-form-wrapper">
+            <div class="aw-form">
+                <div class="aw-form-logo-wrapper">
+                    <img class="dark-logo" src="{{ asset('files/images/menu-logo-dark.png') }}" alt="{{ __('Logo image') }}">
                 </div>
-
-                <div class="aff-short">
-                    <p>
-                        {{ __('Dobrodošli nazad. Unesite Vaše kredencijale i prijavite se na sistem www.example.ba. Enjoy using it !') }}
-                    </p>
+                <div class="aw-form-header">
+                    <h2>{{ __('DOBRODOŠLI!') }}</h2>
+                    <p>{{ __('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.') }}</p>
                 </div>
-                <hr>
-                <div class="aff-form">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="email" class="mb-2"> <b> {{ __('Vaš email') }} </b> </label>
-                                <input type="email" name="email" class="form-control form-control-sm mb-2" id="email" aria-describedby="emailHelp">
-                                <small id="emailHelp" class="form-text text-muted"> {{__('Molimo da unesete Vaš email!')}} </small>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="password" class="mb-2"> <b> {{ __('Vaša šifra / lozinka') }} </b> </label>
-                                <input type="password" name="password" class="form-control form-control-sm mb-2" id="password" aria-describedby="passwordHelp">
-                                <small id="passwordHelp" class="form-text text-muted"> {{ __('Vaša korisnička šifra / lozinka') }} </small>
-                            </div>
+                <div class="aw-form-form">
+                    <div class="aw-ff-input-wrapper auth-email-wrapper">
+                        <label for="email">{{ __('Email') }}</label>
+                        <div class="input-wrapper">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                                <path d="M125.4 128C91.5 128 64 155.5 64 189.4C64 190.3 64 191.1 64.1 192L64 192L64 448C64 483.3 92.7 512 128 512L512 512C547.3 512 576 483.3 576 448L576 192L575.9 192C575.9 191.1 576 190.3 576 189.4C576 155.5 548.5 128 514.6 128L125.4 128zM528 256.3L528 448C528 456.8 520.8 464 512 464L128 464C119.2 464 112 456.8 112 448L112 256.3L266.8 373.7C298.2 397.6 341.7 397.6 373.2 373.7L528 256.3zM112 189.4C112 182 118 176 125.4 176L514.6 176C522 176 528 182 528 189.4C528 193.6 526 197.6 522.7 200.1L344.2 335.5C329.9 346.3 310.1 346.3 295.8 335.5L117.3 200.1C114 197.6 112 193.6 112 189.4z"/>
+                            </svg>
+                            {{ html()->text('email')->class('input auth-email')->required()->placeholder(__('Unesi email')) }}
                         </div>
                     </div>
 
-                    <div class="row aff-links">
-                        <div class="col-md-6 mt-3 d-inline-flex">
-                            <div class="stay-logged-in">
-                                <input type="checkbox" name="stay_logged" id="stay_logged">
-                                <label for="stay_logged">{{ __('Ostanite prijavljeni') }}</label>
-                            </div>
-                            <span>|</span>
-                            <a href="{{ route('auth.restart-password') }}"> {{ __('Zaboravili ste šifru?') }} </a>
+                    <div class="aw-ff-input-wrapper auth-password-wrapper">
+                        <label for="password">{{ __('Šifra') }}</label>
+                        <div class="input-wrapper">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                                <path d="M320 96C284.7 96 256 124.7 256 160L256 224L448 224C483.3 224 512 252.7 512 288L512 512C512 547.3 483.3 576 448 576L192 576C156.7 576 128 547.3 128 512L128 288C128 252.7 156.7 224 192 224L192 160C192 89.3 249.3 32 320 32C383.5 32 436.1 78.1 446.2 138.7C449.1 156.1 437.4 172.6 419.9 175.6C402.4 178.6 386 166.8 383 149.3C378 119.1 351.7 96 320 96zM360 424C373.3 424 384 413.3 384 400C384 386.7 373.3 376 360 376L280 376C266.7 376 256 386.7 256 400C256 413.3 266.7 424 280 424L360 424z"/>
+                            </svg>
+                            {{ html()->password('password')->class('input auth-password')->required()->placeholder(__('Unesi šifru')) }}
                         </div>
-                        <div class="col-md-6 mt-3 d-flex justify-content-end">
-                            <button type="submit" class="btn auth-btn"> {{ __('PRIJAVITE SE') }} </button>
+                        <div class="forgot-password">
+                            <a href="{{ route('auth.account-recovery') }}">{{ __('Zaboravio si šifru?') }}</a>
                         </div>
                     </div>
 
-                    <hr>
+                    <div class="aw-ff-input-wrapper">
+                        <button class="auth-btn">{{ __('Prijavite se') }}</button>
+                    </div>
 
-                    <div class="row aff-links mt-3">
-                        <p>
-                            {{ __('Još nemate korisnički račun?') }}
-                            <a href="{{ route('auth.create-account') }}"><b>{{ __('Kreirajte ga ovdje!') }}</b></a>
-                        </p>
+                    <div class="separation-line">
+                        <p>ILI</p>
+                    </div>
+
+                    <div class="social-networks-wrapper">
+                        <a href="#">
+                            <div class="social-network">
+                                <img src="{{ asset('files/images/icons/google.png') }}" alt="">
+                                <p>{{ __('Google') }}</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="sign-up-wrapper">
+                        <p>{{ __('Nemaš korisnički račun?') }}</p>
+                        <a href="{{ route('auth.create-account') }}">{{ __('Kreiraj ga') }}</a>
                     </div>
                 </div>
             </div>
         </div>
+        @include('public-part.auth.includes.right-side')
     </div>
 @endsection

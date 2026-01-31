@@ -6,8 +6,17 @@
 @import 'bootstrap-datepicker/dist/css/bootstrap-datepicker.css';
 
 /* Notify */
-@import "style/colors";
-@import "style/layout/notify";
+$blue: #213F9A;
+$yellow: #FDB833;
+$yellow-light: #F2D774;
+$orange: #FFAF14;
+$shadowWhite: #E4E2DF;
+$lightGrey: #939598;
+$darkGrey: #3D3D3D;
+$grey: #4B4B4B;
+
+
+@import "shared/common/notify";
 
 $primaryColor : #3D1F5F;
 $secondaryColor : #F86624;
@@ -28,5 +37,5 @@ html{
 /* Snippets */
 //@import "style/snippets/classes";
 
-@import "public-part/auth/auth";
-@import "public-part/auth/create-account";
+//@import "public-part/auth/auth";
+//@import "public-part/auth/create-account";

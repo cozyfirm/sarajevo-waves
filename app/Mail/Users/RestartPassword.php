@@ -12,12 +12,13 @@ use Illuminate\Queue\SerializesModels;
 
 class RestartPassword extends Mailable{
     use Queueable, SerializesModels;
-    public $_name, $_token;
+    public string $_email, $_name, $_token;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($name, $token){
+    public function __construct($email, $name, $token){
+        $this->_email = $email;
         $this->_name = $name;
         $this->_token = $token;
     }
@@ -25,19 +26,17 @@ class RestartPassword extends Mailable{
     /**
      * Get the message envelope.
      */
-    public function envelope(): Envelope
-    {
+    public function envelope(): Envelope{
         return new Envelope(
-            from: new Address('no-reply@fondacijaekipa.ba', 'NoReply EKIPA'),
-            subject: __('Oporavak šifre'),
+            from: new Address(env('MAIL_FROM_ADDRESS'), env('APP_NAME')),
+            subject: __('Oporavak korisničke šifre'),
         );
     }
 
     /**
      * Get the message content definition.
      */
-    public function content(): Content
-    {
+    public function content(): Content{
         return new Content(
             markdown: 'public-part.auth.mail.restart-password',
         );
@@ -48,8 +47,7 @@ class RestartPassword extends Mailable{
      *
      * @return array<int, \Illuminate\Mail\Mailables\Attachment>
      */
-    public function attachments(): array
-    {
+    public function attachments(): array{
         return [];
     }
 }

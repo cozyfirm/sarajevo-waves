@@ -1,13 +1,20 @@
 @component('mail::message')
-# Kreiranje računa
 
-Poštovani/a {{ $_name }},
+Poštovani/a **{{ $_name }}**,
 
-Uspješno ste kreirali profil na www.talentakademija.com.
+Ovim putem Vas obavještavamo da je Vaš korisnički račun uspješno kreiran na
+**{{ config('app.name') }}**.
 
-Za verifikaciju Vašeg email-a, molimo kliknite <a href="{{ route('auth.verify-account', ['token' => $_token]) }}">ovdje</a>.
+Radi verifikacije Vaše email adrese, molimo Vas da kliknete na dugme ispod.
 
-Hvala Vam što koristite naš sistem!
-Ugodan ostatak dana,<br>
-<a href="{{ env('APP_DOMAIN') }}"> Helem Nejse Talent akademija </a>
+@component('mail::button', ['url' => route('auth.verify-account', ['token' => $_token])])
+    Verifikuj email adresu
+@endcomponent
+
+---
+
+Zahvaljujemo Vam na ukazanom povjerenju i korištenju našeg sistema.
+
+Srdačan pozdrav,
+<a href="{{ config('app.url') }}">**{{ config('app.name') }}**</a>
 @endcomponent

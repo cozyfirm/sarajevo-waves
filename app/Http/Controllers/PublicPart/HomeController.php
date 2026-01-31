@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class HomeController extends Controller{
-    protected string $_path = 'public-part.app.home.';
+    protected string $_path = 'public-part.app.modules.home.';
 
     public function home(): View{
         return view($this->_path . 'home');

@@ -1,156 +1,126 @@
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+@import "bootstrap/scss/bootstrap";
+
+@import "../shared/breakpoints";
+@import "../shared/colors";
+@import "../shared/fonts";
+// Notify; Used to notify user
+@import "../../shared/common/notify";
+
 html, body{ position: relative; left:0px; top:0px; width: 100%; height: 100%; margin:0px; padding:0px; }
 
-.form-text, label, .my-font{
-    font-family: "Gimlet Sans Variable", sans-serif;
-    font-display: swap;
-}
-
-.auth-form{
-    position: relative; left:0px; top:0px; width: 100%; height: 100%; display: inline-flex; justify-content: space-between;
-    padding: 0px;
-
-    /*
-     *  Auth form image - left part of page
-     */
-
-    .af-image{
-        position: absolute; left:0px; top:0px; width: 30%; height: 100%; background: #000000; margin: 0px;
-        img{
-            position: absolute; left:0px; top:0px; right:0px; bottom: 0px; margin:auto; max-width: 100%;
-            rotate: -90deg;
+.auth-wrapper{
+    position: relative; width: 100%; height: 100%; display: flex; justify-content: space-between; gap: 24px;
+    .aw-form-wrapper{
+        position: relative; width: calc(50% - 12px); height: 100%; display: flex; justify-content: center; overflow-y: auto;
+        @include down($b-1280) {
+            width: 100%;
+        }
+        @include down($b-768) {
+            width: calc(100% - 40px); left: 20px; padding: 24px 0px;
         }
 
-        .af-img-text{
-            //position: absolute; left:0px; top:0px; width:100%; height:100%;
-
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform:  translateX(-50%) translateY(-50%) rotate(-90deg);
-
-            h1{
-                white-space: nowrap; color:#ffffff; font-size:100px;
-                font-family: "Gimlet Sans Variable", sans-serif;
-                font-display: swap;
+        .aw-form{
+            position: relative; width: 560px; min-height: 120px; display: flex; flex-direction: column; gap: 24px;
+            margin: auto 0;
+            .aw-form-logo-wrapper{
+                position: relative; width: 100%;  margin-bottom: 96px; display: none;
+                img{
+                    height: 36px;
+                }
             }
-        }
-    }
-
-    /*
-     *  Auth form form - input elements for authentication
-     */
-    .af-form{
-        position: relative; left:30%; top:0px; width: 70%; height: 100%; display: inline-flex; align-items: center;
-
-        .aff-container{
-            position: relative; display: inline-flex; flex-wrap: wrap; left:120px; width: calc(100% - 240px);
-            .aff-header{
-                position: relative; left:0px; top:0px; width: 100%;
-                h1{
-                    font-family: "Gimlet Sans Variable", sans-serif;
-                    font-display: swap;
+            .aw-form-header{
+                position: relative; display: flex; flex-direction: column; gap: 8px;
+                h1, p{ margin: 0px; padding: 0px; }
+                @include down($b-768) {
+                    h1{font-size: 24px;}
+                    p{font-size: 14px;}
                 }
             }
 
-            .aff-short{
-                position: relative; left:0px; top:0px; width: 100%;
-                p{ margin:0px; padding:0px;                 font-family: "Gimlet Sans Variable", sans-serif;
-                    font-display: swap; }
-            }
+            .aw-form-form{
+                position: relative; width: 100%; display: flex; flex-direction: column; gap: 16px;
+                @import "../shared/common/form";
 
-            hr{
-                position: relative; left:0px; top:0px; width: 100%; height: 1px; background: #333; margin-top:50px; margin-bottom:50px;
-            }
-
-            .aff-form{
-                position: relative; left:0px; top:0px; width: 100%;
-                .row{
-                    input{
-                        width:100%;
-                    }
-                }
-            }
-
-            .aff-links{
-                /* a{font-weight:bold; } */
-                font-family: "Gimlet Sans Variable", sans-serif;
-                font-display: swap;
-                a{
-                    margin-top:6px;
-                    font-family: "Gimlet Sans Variable", sans-serif;
-                    font-display: swap;
-                }
-                span{margin:0px 10px; font-size:20px;}
-
-                .stay-logged-in{
-                    position: relative; display: inline-flex; gap: 5px;
-                    input{
-                        width:14px; height:14px; margin:0px; padding:0px; margin-top:9px;
-                    }
-                    label{
-                        margin:0px; margin-top:6px;
-                        font-family: "Gimlet Sans Variable", sans-serif;
-                        font-display: swap;
-                    }
-                }
-
-                .btn{
-                    background: #3D1F5F; height: 28px; padding:3px 15px; color:#fff; font-size:14px;
-                    font-family: "Gimlet Sans Variable", sans-serif;
-                    font-display: swap;
-                }
-            }
-        }
-    }
-
-    /*
-     *  Mobile friendly page
-     */
-
-    @media only screen and (max-width: 1500px) {
-        .af-form{
-            .aff-container{ left:50px; width: calc(100% - 100px); }
-        }
-    }
-
-    @media only screen and (max-width: 1300px) {
-        .af-image{display: none;}
-        .af-form{
-            left:0px; width: 100%;
-            .aff-container{ left:120px; width: calc(100% - 240px); }
-        }
-    }
-
-    @media only screen and (max-width: 1300px) {
-        .af-form{
-            .aff-container{
-                left:20px; width: calc(100% - 40px);
-                .aff-short{
+                // Separation line "OR"
+                .separation-line{
+                    position: relative; width: 100%; text-align: center;
                     p{
-                        text-align: justify;
+                        display: inline-block;
+                        background: #fff; /* Form background color */
+                        padding: 0 16px;  /* Space around "ILI" */
+                        position: relative; z-index: 1; font-weight: 600;
+                    }
+
+                    &::before,
+                    &::after {
+                        content: ""; position: absolute; top: 50%; width: 100%; height: 2px; background: #e8e7ea; z-index: 0;
+                    }
+                    &::before { left: 0; }
+                    &::after { right: 0; }
+                }
+
+                // Join with google or apple
+                .social-networks-wrapper{
+                    position: relative; width: 100%; display: flex; flex-direction: column; gap: 16px;
+                    a{ position: relative; width: 100%; display: flex; }
+                    .social-network{
+                        position: relative; width: 100%; display: flex; justify-content: center; gap: 16px; align-items: center;
+                        padding: 12px 16px; border: 2px solid #e8e7ea; border-radius: 12px;
+                        @include down($b-768) {
+                            padding: 8px 16px;
+                        }
+                        img{ height: 16px; }
+                        p{
+                            font-weight: 400; color: #000;
+                        }
                     }
                 }
-                hr{
-                    margin-top:20px; margin-bottom: 20px;
-                }
-                .aff-form{
-                    .col-md-6{
-                        margin-bottom: 20px;
+
+                // Sign up
+                .sign-up-wrapper{
+                    position: relative; width: 100%; display: flex; justify-content: center; gap: 8px;
+                    a{
+                        color: $primary;
                     }
-                    label, input{
-                        font-family: "Gimlet Sans Variable", sans-serif;
-                        font-display: swap;
-                    }
-                }
-                .aff-links{
-                    .col-md-6{
-                        a{display:inline-flex; margin-bottom: 10px;}
-                    }
-                    //span{display: none;}
                 }
             }
-            .auth-btn{
-                width: 100%; margin-top:10px; padding:5px 15px; height: 34px !important;
+        }
+    }
+    .aw-info-wrapper{
+        position: relative; width: calc(50% - 12px); height: 100%; padding: 96px 96px; display: flex; flex-direction: column;
+        background: linear-gradient(135deg, $primary 0%, $primaryGrad 100%);
+
+        @include down($b-1280) {
+            display: none;
+        }
+
+        .aw-info-intro{
+            position: relative; width: 100%; display: flex; flex-direction: column; gap: 24px; align-items: flex-start; flex:1; justify-content: center;
+
+            .aw-ii-inner{
+                position: relative; display: flex; flex-direction: column; gap: 24px; align-items: flex-start;
+                .auth-logo{ height: 42px; width: auto !important; max-width: auto; object-fit: contain; }
+                p, h1{
+                    color: #FFFFFF;
+                }
+            }
+        }
+
+        .aw-info-sites{
+            position: relative; width: 100%; display: flex; flex-direction: column; gap: 16px;
+            .aw-is-header{
+                position: relative; width: 100%; display: flex; justify-content: space-between; gap: 16px; align-items: center;
+                p{ color: #FFFFFF; font-weight: bold; text-transform: uppercase; }
+                .line{
+                    position: relative; flex: 1; height: 1px; background: #e8e7ea;
+                }
+            }
+            .aw-is-links{
+                position: relative; display: flex; gap: 16px; flex-wrap: wrap;
+                a{
+                    color: #FFFFFF; font-weight: light;
+                }
             }
         }
     }

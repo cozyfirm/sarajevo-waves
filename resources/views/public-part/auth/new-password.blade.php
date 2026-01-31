@@ -1,73 +1,46 @@
-@extends('public-part.auth.layout.auth-layout')
-<!-- Title -->
-@section('title') {{ __('Prijavite se') }} @endsection
+@extends('public-part.auth.layout.layout')
+@section('title') {{ Helper::getPageTitle(__('Postavite novu šifru')) }} @endsection
 
-<!-- Main section -->
 @section('content')
-    <div class="auth-form">
-        <div class="af-image">
-            <img src="{{ asset('files/images/logo.png') }}" alt="">
-        </div>
-        <div class="af-form">
-            <div class="aff-container">
-                <div class="aff-header">
-                    <h1 class="tb-color mb-4"> <b>{{ __('Talent Akademija') }}</b> </h1>
+    <div class="auth-wrapper">
+        <div class="aw-form-wrapper">
+            <div class="aw-form">
+                <div class="aw-form-logo-wrapper">
+                    <img class="dark-logo" src="{{ asset('files/images/menu-logo-dark.png') }}" alt="{{ __('Logo image') }}">
                 </div>
-
-                <div class="aff-short">
-                    <p>
-                        {{ __('Unesite Vaš email, te novu korisničku šifru koju želite koristiti. ') }}
-                    </p>
+                <div class="aw-form-header">
+                    <h1>{{ __('Postavite novu šifru') }}</h1>
+                    <p>{{ __('Unesite novu šifru za svoj nalog. Preporučujemo da šifra ima najmanje 8 karaktera i sadrži slova i brojeve.') }}</p>
                 </div>
-                <hr>
-                <div class="aff-form">
-                    <!-- Generated token -->
+                <div class="aw-form-form">
                     {{ html()->hidden('token')->class('form-control')->value($token) }}
 
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="email" class="mb-2"> <b> {{ __('Vaš email') }} </b> </label>
-                                <input type="email" name="email" class="form-control form-control-sm" id="email" aria-describedby="emailHelp">
-                                <small id="emailHelp" class="form-text text-muted"> {{__('Molimo da unesete Vaš email!')}} </small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="password" class="mb-2"> <b> {{ __('Vaš šifra') }} </b> </label>
-                                <input type="password" name="password" class="form-control form-control-sm" id="password" aria-describedby="passwordHelp">
-                                <small id="passwordHelp" class="form-text text-muted"> {{__('Molimo da unesete Vašu šifru!')}} </small>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="passwordRepeat" class="mb-2"> <b> {{ __('Potvrdite šifru') }} </b> </label>
-                                <input type="password" name="passwordRepeat" class="form-control form-control-sm" id="passwordRepeat" aria-describedby="passwordRepeatHelp">
-                                <small id="passwordRepeatHelp" class="form-text text-muted"> {{__('Molimo da ponovo unesete željenu šifru radi potvrde!')}} </small>
-                            </div>
+                    <div class="aw-ff-input-wrapper email-wrapper">
+                        <label for="email">{{ __('Email') }}</label>
+                        <div class="input-wrapper">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                                <path d="M125.4 128C91.5 128 64 155.5 64 189.4C64 190.3 64 191.1 64.1 192L64 192L64 448C64 483.3 92.7 512 128 512L512 512C547.3 512 576 483.3 576 448L576 192L575.9 192C575.9 191.1 576 190.3 576 189.4C576 155.5 548.5 128 514.6 128L125.4 128zM528 256.3L528 448C528 456.8 520.8 464 512 464L128 464C119.2 464 112 456.8 112 448L112 256.3L266.8 373.7C298.2 397.6 341.7 397.6 373.2 373.7L528 256.3zM112 189.4C112 182 118 176 125.4 176L514.6 176C522 176 528 182 528 189.4C528 193.6 526 197.6 522.7 200.1L344.2 335.5C329.9 346.3 310.1 346.3 295.8 335.5L117.3 200.1C114 197.6 112 193.6 112 189.4z"/>
+                            </svg>
+                            {{ html()->text('email')->class('input email')->required()->placeholder('Unesite Vaš email') }}
                         </div>
                     </div>
 
-                    <div class="row aff-links">
-                        <!-- It will stay empty for now -->
-                        <div class="col-md-6 mt-3 d-inline-flex"> </div>
-                        <div class="col-md-6 mt-3 d-flex justify-content-end">
-                            <button type="submit" class="btn generate-password-btn"> {{ __('IZMJENA ŠIFRE') }} </button>
+                    <div class="aw-ff-input-wrapper password-wrapper">
+                        <label for="password">{{ __('Šifra') }}</label>
+                        <div class="input-wrapper">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                                <path d="M125.4 128C91.5 128 64 155.5 64 189.4C64 190.3 64 191.1 64.1 192L64 192L64 448C64 483.3 92.7 512 128 512L512 512C547.3 512 576 483.3 576 448L576 192L575.9 192C575.9 191.1 576 190.3 576 189.4C576 155.5 548.5 128 514.6 128L125.4 128zM528 256.3L528 448C528 456.8 520.8 464 512 464L128 464C119.2 464 112 456.8 112 448L112 256.3L266.8 373.7C298.2 397.6 341.7 397.6 373.2 373.7L528 256.3zM112 189.4C112 182 118 176 125.4 176L514.6 176C522 176 528 182 528 189.4C528 193.6 526 197.6 522.7 200.1L344.2 335.5C329.9 346.3 310.1 346.3 295.8 335.5L117.3 200.1C114 197.6 112 193.6 112 189.4z"/>
+                            </svg>
+                            {{ html()->password('password')->class('input password')->required()->placeholder('Molimo da unesete Vašu šifru') }}
                         </div>
                     </div>
 
-                    <hr>
-
-                    <div class="row aff-links mt-3">
-                        <p>
-                            {{ __('Još nemate korisnički račun?') }}
-                            <a href="{{ route('auth.create-account') }}"><b>{{ __('Kreirajte ga ovdje!') }}</b></a>
-                        </p>
+                    <div class="aw-ff-input-wrapper">
+                        <button class="new-password-btn">{{ __('Sačuvaj novu šifru') }}</button>
                     </div>
                 </div>
             </div>
         </div>
+        @include('public-part.auth.includes.right-side')
     </div>
 @endsection

@@ -12,7 +12,7 @@ use Illuminate\Queue\SerializesModels;
 
 class ConfirmEmail extends Mailable{
     use Queueable, SerializesModels;
-    public $_email, $_name, $_token;
+    public string $_email, $_name, $_token;
 
     /**
      * Create a new message instance.
@@ -28,8 +28,8 @@ class ConfirmEmail extends Mailable{
      */
     public function envelope(): Envelope{
         return new Envelope(
-            from: new Address('no-reply@fondacijaekipa.ba', 'NoReply EKIPA'),
-            subject: 'Confirm Email',
+            from: new Address(env('MAIL_FROM_ADDRESS'), env('APP_NAME')),
+            subject: __('Confirm your email'),
         );
     }
 

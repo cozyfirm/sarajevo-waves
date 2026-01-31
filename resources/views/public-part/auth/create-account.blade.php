@@ -1,150 +1,80 @@
-@extends('public-part.auth.layout.auth-layout')
-<!-- Title -->
-@section('title') {{ __('Prijavite se') }} @endsection
+@extends('public-part.auth.layout.layout')
+@section('title') {{ Helper::getPageTitle(__('Kreirajte račun')) }} @endsection
 
-<!-- Main section -->
 @section('content')
-    <div class="auth-form register-form">
-        <div class="af-image rf-image">
-            <img src="{{ asset('files/images/logo.png') }}" alt="">
-        </div>
-
-        <div class="af-form rf-form">
-            <div class="center-element">
-                <div class="rf-f-header">
-                    <div class="aff-header">
-                        <h1 class="tb-color mb-4"> <b>{{ __('Kreirajte račun') }}</b> </h1>
-                    </div>
-
-                    <div class="aff-short">
-                        <p class="my-font">
-                            {{ __('Unesite Vaše osnovne informacije, kreirajte Vaš korisnički račun, i uživajte koristeći našu platformu!') }}
-                        </p>
-                    </div>
-
-                    <div class="progress-line">
-                        <div class="pl-e-bar"> <div class="pl-e-bar-fill"></div> </div>
-                        <div class="pl-element pl-e-first">
-                            <div class="pl-e-icon-w" title="{{ __('Lični podaci') }}">
-                                <i class="fas fa-user"></i>
-                            </div>
-                        </div>
-                        <div class="pl-element pl-e-second">
-                            <div class="pl-e-icon-w" title="{{ __('Mjesto boravišta') }}">
-                                <i class="fas fa-map-pin"></i>
-                            </div>
-                        </div>
-                        <div class="pl-element pl-e-forth">
-                            <div class="pl-e-icon-w" title="{{ __('Zahtjev poslan') }}">
-                                <i class="fas fa-check"></i>
-                            </div>
-                        </div>
-                    </div>
+    <div class="auth-wrapper">
+        <div class="aw-form-wrapper">
+            <div class="aw-form">
+                <div class="aw-form-logo-wrapper">
+                    <img class="dark-logo" src="{{ asset('files/images/menu-logo-dark.png') }}" alt="{{ __('Logo image') }}">
                 </div>
-
-                <div class="rf-f-body">
-                    <div class="rf-body-element rf-body-element-1 ">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    {{ html()->label(__('Ime i prezime'))->for('name')->class('bold') }}
-                                    {{ html()->text('name')->class('form-control form-control-sm mt-2')->maxlength(100)->value('') }}
-                                    <small id="nameHelp" class="form-text text-muted">{{ __('Unesite Vaše ime prezime') }}</small>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mt-3">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    {{ html()->label(__('Email adresa'))->for('email')->class('bold') }}
-                                    {{ html()->email('email')->class('form-control form-control-sm mt-2')->maxlength(50)->value('') }}
-                                    <small id="emailHelp" class="form-text text-muted">{{ __('Unesite Vašu email adresu') }}</small>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    {{ html()->label(__('Šifra'))->for('password')->class('bold') }}
-                                    {{ html()->password('password')->class('form-control form-control-sm mt-2')->value('') }}
-                                    <small id="passwordHelp" class="form-text text-muted">{{ __('Unesite Vašu korisničku šifru') }}</small>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mt-3">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    {{ html()->label(__('Broj telefona'))->for('phone')->class('bold') }}
-                                    {{ html()->number('phone')->class('form-control form-control-sm mt-2')->maxlength(13)->value('') }}
-                                    <small id="prefixHelp" class="form-text text-muted"> {{ __('Unesite Vaš broj telefona') }} </small>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    {{ html()->label(__('Datum rođenja'))->for('birth_date')->class('bold') }}
-                                    {{ html()->text('birth_date')->class('form-control form-control-sm mt-2 datepicker')->maxlength('10')->value('') }}
-                                    <small id="birth_dateHelp" class="form-text text-muted">{{ __('Unesite Vaš datum rođenja') }}</small>
-                                </div>
-                            </div>
+                <div class="aw-form-header">
+                    <h1>{{ __('Kreirajte račun!') }}</h1>
+                    <p>{{ __('Kreirajte račun, istražite našu ponudu i pronađite proizvode po svom ukusu.') }}</p>
+                </div>
+                <div class="aw-form-form">
+                    <div class="aw-ff-input-wrapper name-wrapper">
+                        <label for="username">{{ __('Ime i prezime') }}</label>
+                        <div class="input-wrapper">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                                <path d="M240 192C240 147.8 275.8 112 320 112C364.2 112 400 147.8 400 192C400 236.2 364.2 272 320 272C275.8 272 240 236.2 240 192zM448 192C448 121.3 390.7 64 320 64C249.3 64 192 121.3 192 192C192 262.7 249.3 320 320 320C390.7 320 448 262.7 448 192zM144 544C144 473.3 201.3 416 272 416L368 416C438.7 416 496 473.3 496 544L496 552C496 565.3 506.7 576 520 576C533.3 576 544 565.3 544 552L544 544C544 446.8 465.2 368 368 368L272 368C174.8 368 96 446.8 96 544L96 552C96 565.3 106.7 576 120 576C133.3 576 144 565.3 144 552L144 544z"/>
+                            </svg>
+                            {{ html()->text('name', '')->class('input username-input register-name')->required()->placeholder('John Doe') }}
                         </div>
                     </div>
 
-                    <div class="rf-body-element rf-body-element-2 d-none">
-                        <div class="row">
-                            <div class="col-md-6">
-                                {{ html()->label(__('Adresa stanovanja'))->for('address')->class('bold') }}
-                                {{ html()->text('address')->class('form-control form-control-sm mt-2')->maxlength('100')->value('') }}
-                                <small id="addressHelp" class="form-text text-muted">{{ __('Vaša adresa stanovanja') }}</small>
-                            </div>
-                            <div class="col-md-6">
-                                {{ html()->label(__('Grad'))->for('city')->class('bold') }}
-                                {{ html()->text('city')->class('form-control form-control-sm mt-2')->maxlength('50')->value('') }}
-                                <small id="living_placeHelp" class="form-text text-muted">{{ __('Grad u kojem trenutno živite') }}</small>
-                            </div>
-                        </div>
-
-                        <div class="row mt-3">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    {{ html()->label(__('Država'))->for('country')->class('bold') }}
-                                    {{ html()->select('country', $countries, 21)->class('form-control form-control-sm mt-2')->options([]) }}
-                                    <small id="countryHelp" class="form-text text-muted"> {{ __('Odaberite državu u kojoj trenutno živite') }} </small>
-                                </div>
-                            </div>
+                    <div class="aw-ff-input-wrapper email-wrapper">
+                        <label for="email">{{ __('Email') }}</label>
+                        <div class="input-wrapper">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                                <path
+                                    d="M125.4 128C91.5 128 64 155.5 64 189.4C64 190.3 64 191.1 64.1 192L64 192L64 448C64 483.3 92.7 512 128 512L512 512C547.3 512 576 483.3 576 448L576 192L575.9 192C575.9 191.1 576 190.3 576 189.4C576 155.5 548.5 128 514.6 128L125.4 128zM528 256.3L528 448C528 456.8 520.8 464 512 464L128 464C119.2 464 112 456.8 112 448L112 256.3L266.8 373.7C298.2 397.6 341.7 397.6 373.2 373.7L528 256.3zM112 189.4C112 182 118 176 125.4 176L514.6 176C522 176 528 182 528 189.4C528 193.6 526 197.6 522.7 200.1L344.2 335.5C329.9 346.3 310.1 346.3 295.8 335.5L117.3 200.1C114 197.6 112 193.6 112 189.4z"/>
+                            </svg>
+                            {{ html()->text('email', $email ?? '')->class('input email-input register-email')->required()->placeholder('john@doe.ba') }}
                         </div>
                     </div>
 
-                    <div class="rf-body-element rf-body-element-4 pb-4 d-none">
-                        <p>
-                            {{ __('Vaš korisnički račun / profil na sistemu www.talentakademija.ba je uspješno kreiran. Za verifikaciju Vašeg email-a, molimo slijedite upute poslane putem email-a.') }}
-                            <br>
-                            <b>{{ __('Napomena:') }}</b>
-                            {{ __('Ukoliko ne dobijete email unutar 5 minuta, provjerite junk (spam) folder, ili nas kontaktirajte putem email-a!') }}
-                        </p>
-                    </div>
-
-                    <div class="row mt-3 pt-4 pb-4 back-next-btn-wrapper">
-                        <div class="col-md-12 d-flex justify-content-end">
-                            <div class="button-wrapper create-profile-back-btn d-none">
-                                <b>{{__('Nazad')}}</b>
-                            </div>
-                            <div class="button-wrapper create-profile-next-btn">
-                                <b>{{__('Sljedeći korak')}}</b>
-                            </div>
+                    <div class="aw-ff-input-wrapper">
+                        <label for="password">{{ __('Šifra') }}</label>
+                        <div class="input-wrapper">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                                <path
+                                    d="M320 96C284.7 96 256 124.7 256 160L256 224L448 224C483.3 224 512 252.7 512 288L512 512C512 547.3 483.3 576 448 576L192 576C156.7 576 128 547.3 128 512L128 288C128 252.7 156.7 224 192 224L192 160C192 89.3 249.3 32 320 32C383.5 32 436.1 78.1 446.2 138.7C449.1 156.1 437.4 172.6 419.9 175.6C402.4 178.6 386 166.8 383 149.3C378 119.1 351.7 96 320 96zM360 424C373.3 424 384 413.3 384 400C384 386.7 373.3 376 360 376L280 376C266.7 376 256 386.7 256 400C256 413.3 266.7 424 280 424L360 424z"/>
+                            </svg>
+                            {{ html()->password('password')->class('input register-password')->required()->placeholder('Vaša šifru') }}
                         </div>
                     </div>
 
-                    <hr>
-
-                    <div class="row pt-4">
-                        <div class="col-md-12 my-font">
-                            {{ __('Imate kreiran račun?') }} <a href="{{ route('auth') }}"><b>{{ __('Prijavite se') }}</b></a>
-                        </div>
+                    <div class="aw-ff-input-wrapper">
+                        <button class="create-account-btn">{{ __('Kreirajte račun') }}</button>
                     </div>
-                    {{--                {{ html()->form('POST', route('auth.save-account'))->open() }}--}}
-                    {{--                {{ html()->form()->close() }}--}}
+
+                    <div class="separation-line">
+                        <p>ILI</p>
+                    </div>
+
+                    <div class="social-networks-wrapper">
+                        <a href="#">
+                            <div class="social-network">
+                                <img src="{{ asset('files/images/icons/google.png') }}" alt="">
+                                <p>{{ __('Google') }}</p>
+                            </div>
+                        </a>
+{{--                        <a href="#">--}}
+{{--                            <div class="social-network">--}}
+{{--                                <img src="{{ asset('files/images/icons/apple.png') }}" alt="">--}}
+{{--                                <p>{{ __('Apple') }}</p>--}}
+{{--                            </div>--}}
+{{--                        </a>--}}
+                    </div>
+
+                    <div class="sign-up-wrapper">
+                        <p>{{ __('Imate korisnički račun?') }}</p>
+                        <a href="{{ route('auth') }}">{{ __('Prijavite se') }}</a>
+                    </div>
                 </div>
             </div>
         </div>
+        @include('public-part.auth.includes.right-side')
     </div>
 @endsection

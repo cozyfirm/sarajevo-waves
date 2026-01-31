@@ -1,0 +1,13 @@
+$b-360: 360px;
+$b-414: 414px;
+$b-768: 768px;
+$b-1024: 1024px;
+$b-1280: 1280px;
+$b-1440: 1440px;
+$b-1920: 1920px;
+
+@mixin down($breakpoint) {
+    @media (max-width: $breakpoint) {
+        @content;
+    }
+}
