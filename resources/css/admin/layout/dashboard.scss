@@ -6,59 +6,36 @@
         width: calc(100% - 400px);
 
         .home-row{
-            position: relative; width: calc(100% - 0px); margin-bottom:30px;
+            position: relative; width: calc(100% - 0px); margin-bottom:30px; border-radius: 8px;
+            box-shadow: rgba(0, 0, 0, 0.08) 0px 1px 2px;
 
             .home-row-header{
-                position:relative;
-                top:0px;
-                width:100%;
-                height:50px;
-                background:$grey;
-                border-top-right-radius: 2px;
-                border-top-left-radius: 2px;
+                position:relative; top:0px; width:100%; height:50px; background:$grey; border-top-right-radius: 8px; border-top-left-radius: 4px;
+
                 h4{
-                    color:#fff;
-                    position:absolute; left:20px;
-                    margin-top:16px;
-                    font-size:18px;
+                    color:#fff; position:absolute; left:20px; margin-top:16px; font-size:18px;
                 }
             }
 
             .home-row-body{
-                position:relative;
-                top:0px;
-                width:calc(100% - 2px);
-                border:1px solid rgba(0,0,0,0.1);
+                position:relative; top:0px; width:calc(100% - 2px); border:1px solid #F8F9FA;
 
                 .home-row-items{
-                    position:relative;
-                    left:20px;
-                    padding-top:20px;
-                    padding-bottom:20px;
-                    top:0px;
-                    width:calc(100% - 40px);
-                    // justify-content: space-between;
-                    display:inline-flex;
-                    gap: 32px;
+                    position:relative; left:20px; padding-top:20px; padding-bottom:20px; top:0px; width:calc(100% - 40px); display:inline-flex; gap: 32px;
 
                     .home-icon{
-                        position:relative;
-                        width:calc(25% - 20px);
-                        min-height:140px;
-                        background:rgba(0,0,0,0.1);
-                        border-radius:2px;
-                        justify-content:center;
-                        flex-wrap:wrap;
-                        text-align:center;
-                        transition: 0.2s all;
+                        position:relative; width:calc(25% - 20px); min-height:140px; background:#FFFFFF; border-radius:2px; justify-content:center; flex-wrap:wrap;
+                        text-align:center; transition: 0.2s all ease-in-out; border-radius: 4px;
+
                         i{
                             font-size:50px;
                             margin-top:30px;
                             margin-bottom:10px;
                             color:$grey;
                         }
-                        img{
+                        img, svg{
                             height: 50px; margin-top: 30px; margin-bottom:10px;
+                            path{fill: #4B4B4B; transition: 0.2s all ease-in-out; }
                         }
                         .white-icon{
                             display: none;
@@ -74,6 +51,9 @@
                         i, p{color:#fff;}
                         .white-icon{
                             display: initial;
+                        }
+                        svg{
+                            path{fill: #FFFFFF;}
                         }
                         .normal-icon{display: none;}
                     }
@@ -109,19 +89,11 @@
         position: relative; width: 360px; min-height: 200px; // border-left: 1px solid rgba(0,0,0,0.1);
 
         .home-right-wrapper{
-            position:relative;
-            left:0px;
-            top:0px;
-            width:100%;
-            border-radius:3px;
-            border:1px solid rgba(0,0,0,0.1);
-            margin-bottom:20px;
+            position:relative; left:0px; top:0px; width:100%; border-radius:3px; box-shadow: rgba(0, 0, 0, 0.08) 0px 1px 2px; margin-bottom:20px;
+            padding-bottom: 2px; background: #ffffff;
 
             .home-right-header{
-                position:relative;
-                width:100%;
-                height:40px;
-                background:$grey;
+                position:relative; width:100%; height:40px; background:$grey; border-top-left-radius: 4px; border-top-right-radius: 4px;
                 p{
                     color:#fff;
                     margin-left:15px;
@@ -136,16 +108,8 @@
                     color: #FFFFFF;
                     a{ color: #FFFFFF; }
                 }
-                position:relative;
-                top:0px;
-                width:calc(100% - 30px);
-                margin-top:15px;
-                margin-left: 15px;
-                background:rgba(0,0,0,0.05);
-                padding:8px;
-                font-weight:bold;
-                font-size:13px;
-                border-radius:4px;
+                position:relative; top:0px; width:calc(100% - 30px); margin-top:15px; margin-left: 15px; padding:8px 16px;
+                border: 1px solid #e8e7ea; font-weight:bold; font-size:13px; border-radius:4px;
 
                 transition: 0.2s all;
 

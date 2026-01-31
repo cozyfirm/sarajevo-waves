@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Core;
+namespace App\Http\Controllers\System\Common;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Admin\Core\Filters;
 use App\Models\Core\Keyword;
-use Illuminate\Http\JsonResponse;
+use App\Services\Shared\Filters;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;

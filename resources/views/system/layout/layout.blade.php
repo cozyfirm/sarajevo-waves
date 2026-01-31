@@ -1,8 +1,7 @@
 <html>
     <head>
-        <title>{{ 'Welcome' }}</title>
-        <script src="https://kit.fontawesome.com/e3d0ab8b0c.js" crossorigin="anonymous"></script>
-        <link rel="shortcut icon" type="image/x-icon" href="{{ asset('files/images/public-part/logo.svg') }}" />
+        <title> @yield('title', 'Admin panel') </title>
+        <link rel="shortcut icon" type="image/x-icon" href="{{asset('files/images/icons/logo-icon.png')}}"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
         <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -20,12 +19,12 @@
         <div class="loading">
             <img src="{{ asset('files/images/default/loading.gif') }}" alt="">
         </div>
-        @include('admin.layout.snippets.menu')
+        @include('system.layout.snippets.menu')
 
         <!-- Main page content -->
         <div class="main-content">
             <!-- Basic header of every page -->
-            @include("admin.layout.snippets.content.content-menu")
+            @include("system.layout.snippets.content.content-menu")
 
             <!-- Main content of every page -->
             @yield('content')

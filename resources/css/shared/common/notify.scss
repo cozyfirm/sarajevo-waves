@@ -11,12 +11,12 @@
         position: relative; left:0px; top:0px; margin-bottom: 15px; padding:5px 15px; border-radius: 8px;
 
         .nt-inline{
-            display: inline-flex;
+            display: flex; align-items: center; gap: 8px;
             .nt-icon{
-                margin-right:10px; font-size:15px; padding-top:4px;
+
             }
             p{
-                margin:0px; font-weight: bold;
+                margin:0px; font-weight: 400; letter-spacing: -0.02em;  line-height: 20px; margin-top: -2px;
             }
         }
     }
@@ -46,7 +46,7 @@
     }
 }
 
-@media only screen and (max-width: 800px){
+@media only screen and (max-width: 768px){
     .notifyMeWrapper{
         max-width: calc(100% - 30px);
     }

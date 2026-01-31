@@ -55,6 +55,13 @@ class User extends Authenticatable{
     public function birthDate(): string {
         return Carbon::parse(isset($this->birth_date) ? $this->birth_date : date('Y-m-d'))->format('d.m.Y');
     }
+    public function getInitials(): string {
+        $parts = preg_split('/\s+/', trim($this->username));
+
+        $firstInitial = isset($parts[0]) ? mb_substr($parts[0], 0, 1) : '';
+        $lastInitial = isset($parts[1]) ? mb_substr(end($parts), 0, 1) : '';
+        return mb_strtoupper($firstInitial . $lastInitial);
+    }
     public function countryRel(): HasOne{
         return $this->hasOne(Country::class, 'id', 'country');
     }

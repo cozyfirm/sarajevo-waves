@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\Admin\Core\KeywordsController;
-use App\Http\Controllers\Admin\HomeController;
-use App\Http\Controllers\Admin\Other\FAQsController;
-use App\Http\Controllers\Admin\Users\UsersController;
 use App\Http\Controllers\PublicPart\Auth\AuthController;
 use App\Http\Controllers\PublicPart\HomeController as PublicHomeController;
+use App\Http\Controllers\System\Common\FAQsController;
+use App\Http\Controllers\System\Common\KeywordsController;
+use App\Http\Controllers\System\Dashboard\DashboardController as SystemDashboardController;
+use App\Http\Controllers\System\HomeController;
+use App\Http\Controllers\System\Users\UsersController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('/')->group(function () {
@@ -16,9 +17,15 @@ Route::prefix('/')->group(function () {
 });
 
 /**
- *  Auth routes
+ *  Authentication routes; Used to authenticate user and all login / logout problems solving :
+ *
+ *      - authenticate
+ *      - logout
+ *      - create new account
+ *      - verify account
+ *      - restart password
+ *      - generate new password
  */
-
 Route::prefix('auth')->group(function () {
     Route::get ('/',                              [AuthController::class, 'auth'])->name('auth');
     Route::post('/authenticate',                  [AuthController::class, 'authenticate'])->name('auth.authenticate');
@@ -38,29 +45,35 @@ Route::prefix('auth')->group(function () {
 });
 
 
+/** ----------------------------------------------------------------------------------------------------------------- */
 /**
  *  Admin routes
  */
 
 Route::prefix('system')->middleware('isAuthenticated')->group(function () {
+    /** Dashboard routes */
+    Route::prefix('dashboard')->group(function (){
+        Route::get('/',                            [SystemDashboardController::class, 'home'])->name('system.dashboard');
+    });
+
+    /** Users routes; */
+    Route::prefix('users')->middleware('isAuthenticated')->group(function () {
+        Route::get ('/',                          [UsersController::class, 'index'])->name('system.users');
+        Route::get ('/create',                    [UsersController::class, 'create'])->name('system.users.create');
+        Route::post('/save',                      [UsersController::class, 'save'])->name('system.users.save');
+        Route::get ('/preview/{username}',        [UsersController::class, 'preview'])->name('system.users.preview');
+        Route::get ('/edit/{username}',           [UsersController::class, 'edit'])->name('system.users.edit');
+        Route::post('/update',                    [UsersController::class, 'update'])->name('system.users.update');
+        Route::post('/update-profile-image',      [UsersController::class, 'updateProfileImage'])->name('system.users.update-profile-image');
+    });
+
     /**
      *  Root Admin routes
      */
     Route::prefix('admin')->middleware('isAdmin')->group(function (){
         Route::get('/dashboard',                 [HomeController::class, 'index'])->name('system.admin.home');
 
-        /**
-         *  Users routes;
-         */
-        Route::prefix('users')->middleware('isAuthenticated')->group(function () {
-            Route::get ('/',                          [UsersController::class, 'index'])->name('system.admin.users');
-            Route::get ('/create',                    [UsersController::class, 'create'])->name('system.admin.users.create');
-            Route::post('/save',                      [UsersController::class, 'save'])->name('system.admin.users.save');
-            Route::get ('/preview/{username}',        [UsersController::class, 'preview'])->name('system.admin.users.preview');
-            Route::get ('/edit/{username}',           [UsersController::class, 'edit'])->name('system.admin.users.edit');
-            Route::post('/update',                    [UsersController::class, 'update'])->name('system.admin.users.update');
-            Route::post('/update-profile-image',      [UsersController::class, 'updateProfileImage'])->name('system.admin.users.update-profile-image');
-        });
+
 
         /**
          *  Other section

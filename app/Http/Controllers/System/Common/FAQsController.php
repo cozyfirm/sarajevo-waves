@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Other;
+namespace App\Http\Controllers\System\Common;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Admin\Core\Filters;
 use App\Models\Other\FAQ;
+use App\Services\Shared\Filters;
 use App\Traits\Common\FileTrait;
 use App\Traits\Http\ResponseTrait;
 use App\Traits\Users\UserBaseTrait;

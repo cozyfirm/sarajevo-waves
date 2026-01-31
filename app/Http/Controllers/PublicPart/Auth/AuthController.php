@@ -48,7 +48,7 @@ class AuthController extends Controller{
                 $user = Auth::user();
 
                 $route = route('public.home');
-                // if($user->role == 'admin') $route = route('system.home');
+                if($user->role == 'admin') $route = route('system.dashboard');
 
                 // Log user action
                 $this->logAction($user, 'sign-in', __('Prijava na sistem'));

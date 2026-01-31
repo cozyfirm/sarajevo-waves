@@ -6,6 +6,15 @@ $left-menu-w : 320px;
 $primaryColor : #3D1F5F;
 $secondaryColor : #F86624;
 
+$primary: #8A7368;
+$primaryHover: #756158;     // Used for hover state
+$primaryGrad: #B7A39A;      // Used for gradient
+
+$secondary: #33B3AE;
+
+$success: #33B3AE;
+$danger: #C84040;
+
 body{
     font-family: -apple-system, BlinkMacSystemFont, sans-serif; letter-spacing: 0.0px; padding: 0px; margin:0px;
     a{

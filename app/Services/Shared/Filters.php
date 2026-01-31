@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Core;
+namespace App\Services\Shared;
 
-use App\Http\Controllers\Controller;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 
-class Filters extends Controller{
+class Filters{
     public static function date($date){
         if($date != ''){
             return (Carbon::parse($date)->format('d.m.Y'));

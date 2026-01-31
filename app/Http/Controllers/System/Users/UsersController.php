@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Users;
+namespace App\Http\Controllers\System\Users;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Admin\Core\Filters;
 use App\Models\Core\Country;
 use App\Models\User;
+use App\Services\Shared\Filters;
 use App\Traits\Http\ResponseTrait;
 use App\Traits\Users\UserBaseTrait;
 use Carbon\Carbon;
@@ -17,7 +17,7 @@ use Illuminate\View\View;
 
 class UsersController extends Controller{
     use UserBaseTrait, ResponseTrait;
-    protected string $_path = 'admin.app.users.';
+    protected string $_path = 'system.app.users.';
 
     public function index(): View{
         $users = User::where('id', '>', 0);

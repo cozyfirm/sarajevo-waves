@@ -86,6 +86,7 @@
                 i{color: $yellow;}
                 .normal-icon{display: none;}
                 .yellow-icon{display: initial;}
+                svg{path{ fill: $yellow; }}
             }
         }
         .page-menu-icon-w{
@@ -99,6 +100,10 @@
             }
             img{
                 max-height: 40px; max-width:40px;
+            }
+            svg{
+                height: 48px;
+                path{fill: $grey; transition: all 0.2s ease-in-out;}
             }
             .normal-icon{display: initial;}
             .yellow-icon{display: none;}
@@ -129,11 +134,12 @@
                 .pmc-right-content{
                     .pm-btn{
                         box-shadow: 0 0.125rem 0.625rem rgba(52, 58, 64, 0.4), 0 0.0625rem 0.125rem rgba(52, 58, 64, 0.5);
-
                         margin-left: 4px; height: 34px; display: inline-flex; transition: 0.2s all;
 
-
-
+                        svg{
+                            height: 14px; margin-top: 4px;
+                            path{fill: #ffffff;}
+                        }
                         i{
                             font-size: 14px; margin-top: 4px; transition: 0.2s all;
                         }
@@ -151,21 +157,61 @@
                     .pm-btn-5{margin-left: 5px;}
                     .pm-btn-success{
                         background: #3AC47D; color:#ffffff; box-shadow: 0 0.125rem 0.625rem rgba(58, 196, 125, 0.4), 0 0.0625rem 0.125rem rgba(58, 196, 125, 0.5);
+                        transition: all 0.3s ease;
                         span{
                             margin-left: 10px;
+                        }
+                        &:hover {
+                            transform: translateY(-1px);
+
+                            box-shadow:
+                                0 0.25rem 1rem rgba(58, 196, 125, 0.6),
+                                0 0.125rem 0.25rem rgba(58, 196, 125, 0.7);
+
+                            filter: brightness(0.95);
                         }
                     }
                     .pm-btn-info{
                         background: $yellow; box-shadow: 0 0.125rem 0.625rem rgba(237, 235, 19, 0.4), 0 0.0625rem 0.125rem rgba(237, 209, 19, 0.5);
+                        transition: all 0.3s ease;
                         span{
                             margin-left: 10px; color: #FFFFFF; padding: 0px; margin-top: 0px;
                         }
                         i{color: #FFFFFF;}
+                        &:hover {
+                            transform: translateY(-1px);
+
+                            box-shadow:
+                                0 0.25rem 1rem rgba(237, 235, 19, 0.6),
+                                0 0.125rem 0.25rem rgba(237, 209, 19, 0.7);
+
+                            filter: brightness(0.95); // blago tamnije = bolji kontrast
+                        }
                     }
                     .pm-btn-edit, .pm-btn-trash{
                         background: #FFFFFF; color:#333333;
                         span{
                             margin-left: 10px;
+                        }
+                    }
+                    .pm-btn-edit{
+                        background: #51585e; color:#ffffff; box-shadow: 0 0.125rem 0.625rem rgba(34, 149, 221, 0.4), 0 0.0625rem 0.125rem rgba(36, 174, 219, 0.5); transition: 0.3s ease;
+                        span{ margin-left: 10px; }
+                        &:hover {
+                            transform: translateY(-1px);
+
+                            box-shadow:0 0.25rem 1rem rgba(34, 149, 221, 0.6), 0 0.125rem 0.25rem rgba(36, 174, 219, 0.7);
+
+                            filter: brightness(1.05);
+                        }
+                    }
+                    .pm-btn-trash{
+                        background: #dc3545; color: white; box-shadow: 0 0.125rem 0.625rem rgba(220, 53, 69, 0.35), 0 0.0625rem 0.125rem rgba(220, 53, 69, 0.45); transition: 0.3s ease;
+                        &:hover {
+                            transform: translateY(-1px);
+                            box-shadow:
+                                0 0.25rem 1rem rgba(220, 53, 69, 0.55),
+                                0 0.125rem 0.25rem rgba(220, 53, 69, 0.7);
                         }
                     }
                 }

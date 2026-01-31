@@ -32,13 +32,10 @@
                             <div class="filter-row">
                                 <div class="input-group mb-2 mt-2">
                                     <div class="input-group-prepend ml-2">
-                                        <select class="form-control form-control-sm filters-select"
-                                                required="required"
-                                                name="filter[]">
+                                        <select class="form-control form-control-sm filters-select" required="required" name="filter[]">
                                             <option value=""><b>{{__('Odaberite ...')}}</b></option>
                                             @foreach($filters as $key => $value)
-                                                <option {{ ($key == $v) ? 'selected="selected"' : '' }}
-                                                        value="{{ $key ?? '/'}}">
+                                                <option {{ ($key == $v) ? 'selected="selected"' : '' }}value="{{ $key ?? '/'}}">
                                                     <b>{{ $value ?? '/'}}</b>
                                                 </option>
                                             @endforeach
