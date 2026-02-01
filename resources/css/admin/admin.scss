@@ -1,3 +1,12 @@
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+@import "bootstrap/scss/bootstrap";
+@import 'bootstrap-datepicker/dist/css/bootstrap-datepicker.css';
+@import "/node_modules/select2/dist/css/select2.css";
+@import "flatpickr/dist/flatpickr.min.css";
+
+// System data
+@import "../shared/common/notify";
+
 /**
  *  Define colors
  */
@@ -39,17 +48,5 @@ $grey: #4B4B4B;
 @import "layout/menu";
 @import "layout/content";
 @import "layout/filters";
-
 @import "layout/snippets/width";
-
 @import "layout/dashboard";
-
-.text{
-    color:red;
-    background:blue;
-    font-size:10px;
-
-    .hello{
-        background:red;
-    }
-}

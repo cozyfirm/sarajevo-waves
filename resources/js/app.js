@@ -20,6 +20,7 @@ import "./style/submit.js";
  */
 
 import './public-part/auth/auth.js';
+import flatpickr from "flatpickr";
 
 $(document).ready(function() {
     $(".datepicker").datepicker({
@@ -53,5 +54,9 @@ $(document).ready(function() {
         escapeMarkup: function (markup) {
             return markup; // Allow custom HTML (if needed)
         }
+    });
+
+    flatpickr(".date-input", {
+        dateFormat: "d.m.Y"
     });
 });

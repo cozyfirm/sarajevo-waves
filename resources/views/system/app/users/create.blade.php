@@ -82,7 +82,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 {{ html()->label(__('Uloga'))->for('role')->class('bold') }}
-                                {{ html()->select('role', ['user' => 'User', 'presenter' => 'Presenter', 'admin' => 'Admin' ], isset($user) ? $user->role : '')->class('form-control form-control-sm')->required()->disabled(isset($preview)) }}
+                                {{ html()->select('role', ['user' => 'Korisnik', 'moderator' => 'Moderator', 'admin' => 'Admin' ], isset($user) ? $user->role : '')->class('form-control single-select2 form-control-sm')->required()->disabled(isset($preview)) }}
                             </div>
                         </div>
                     </div>
@@ -91,13 +91,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 {{ html()->label(__('Telefon'))->for('phone')->class('bold') }}
-                                {{ html()->text('phone')->class('form-control form-control-sm mt-1')->required()->maxlength(13)->value((isset($user) ? $user->phone : ''))->isReadonly(isset($preview)) }}
+                                {{ html()->text('phone')->class('form-control form-control-sm mt-1')->required()->maxlength(13)->value((isset($user) ? $user->phone : ''))->isReadonly(isset($preview))->placeholder('+387') }}
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 {{ html()->label(__('Datum rođenja'))->for('birth_date')->class('bold') }}
-                                {{ html()->text('birth_date')->class('form-control form-control-sm datepicker mt-1')->required()->maxlength(10)->value((isset($user) ? $user->birthDate() : ''))->isReadonly(isset($preview)) }}
+                                {{ html()->text('birth_date')->class('form-control form-control-sm date-input mt-1')->required()->maxlength(10)->value((isset($user) ? $user->birthDate() : ''))->isReadonly(isset($preview)) }}
                             </div>
                         </div>
                     </div>
@@ -121,7 +121,16 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 {{ html()->label(__('Država'))->for('country')->class('bold') }}
-                                {{ html()->select('country', $countries, isset($user) ? $user->country : '21')->class('form-control form-control-sm mt-1')->required()->disabled(isset($preview)) }}
+                                {{ html()->select('country', $countries, isset($user) ? $user->country : '21')->class('form-control single-select2 form-control-sm mt-1')->required()->disabled(isset($preview)) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                {{ html()->label(__('Kratki opis'))->for('about')->class('bold') }}
+                                {{ html()->textarea('about')->class('form-control form-control-sm mt-1')->required()->value((isset($user) ? $user->about : ''))->isReadonly(isset($preview))->style('height:120px;') }}
                             </div>
                         </div>
                     </div>

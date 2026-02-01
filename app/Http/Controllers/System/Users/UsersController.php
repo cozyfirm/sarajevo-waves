@@ -19,6 +19,9 @@ class UsersController extends Controller{
     use UserBaseTrait, ResponseTrait;
     protected string $_path = 'system.app.users.';
 
+    /**
+     * @return View
+     */
     public function index(): View{
         $users = User::where('id', '>', 0);
         $users = Filters::filter($users);
@@ -45,6 +48,11 @@ class UsersController extends Controller{
             'countries' => Country::pluck('name_ba', 'id')
         ]);
     }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function save(Request $request): JsonResponse{
         try{
             $request['birth_date'] = Carbon::parse($request->birth_date)->format('Y-m-d');
@@ -68,12 +76,16 @@ class UsersController extends Controller{
             /* Update user */
             $user = User::create($request->except(['id']));
 
-            return $this->jsonSuccess(__('Uspješno ste ažurirali podatke!'), route('system.admin.users.preview', ['username' => $user->username]));
+            return $this->jsonSuccess(__('Uspješno spašeno'), route('system.admin.users.preview', ['username' => $user->username]));
         }catch (\Exception $e){
             return $this->jsonError('1500', __('Greška prilikom procesiranja podataka. Molimo da nas kontaktirate!'));
         }
     }
 
+    /**
+     * @param $username
+     * @return View
+     */
     public function preview ($username): View{
         return view($this->_path . 'preview', [
             'preview' => true,
@@ -81,6 +93,11 @@ class UsersController extends Controller{
             'countries' => Country::pluck('name_ba', 'id')
         ]);
     }
+
+    /**
+     * @param $username
+     * @return View
+     */
     public function edit ($username): View{
         return view($this->_path . 'create', [
             'edit' => true,
@@ -88,24 +105,32 @@ class UsersController extends Controller{
             'countries' => Country::pluck('name_ba', 'id')
         ]);
     }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function update(Request $request): JsonResponse{
         try{
-            if (!isset($request->birth_date)) {
-                $request['birth_date'] = Carbon::parse($request->birth_date)->format('Y-m-d');
-            }
-            if (isset($request->id)) {
-                $user = User::where('id', '=', $request->id)->first();
+            if(!isset($request->birth_date)) $request['birth_date'] = null;
+            else $request['birth_date'] = Carbon::parse($request->birth_date)->format('Y-m-d');
 
+            if(isset($request->id)) {
+                $user = User::where('id', '=', $request->id)->first();
                 /* Update user */
                 $user->update($request->except(['id']));
             }
 
-            return $this->jsonSuccess(__('Uspješno ste ažurirali podatke!'), route('system.admin.users.preview', ['username' => $user->username]));
+            return $this->jsonSuccess(__('Uspješno ažurirano'), route('system.users.preview', ['username' => $user->username]));
         }catch (\Exception $e){
             return $this->jsonError('1500', __('Greška prilikom procesiranja podataka. Molimo da nas kontaktirate!'));
         }
     }
 
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     */
     public function updateProfileImage (Request $request): RedirectResponse{
         try{
             $file = $request->file('photo_uri');
@@ -117,7 +142,6 @@ class UsersController extends Controller{
             User::where('id', '=', $request->id)->update(['photo_uri' => $name]);
 
         }catch (\Exception $e){}
-
         return back();
     }
 }
