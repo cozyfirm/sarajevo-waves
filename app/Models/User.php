@@ -24,7 +24,7 @@ class User extends Authenticatable{
      * @var array<int, string>
      */
     protected $fillable = [
-        'name', 'username', 'email', 'email_verified_at', 'password', 'api_token', 'role', 'phone', 'birth_date', 'address', 'city', 'country', 'about', 'photo',
+        'name', 'username', 'email', 'email_verified_at', 'password', 'api_token', 'two_fa', 'two_fa_secret', 'role', 'phone', 'birth_date', 'address', 'city', 'country', 'about', 'photo',
     ];
 
     /**
@@ -46,6 +46,7 @@ class User extends Authenticatable{
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'two_fa' => 'boolean',
         ];
     }
 

@@ -7,6 +7,7 @@ use App\Http\Controllers\System\Settings\KeywordsController;
 use App\Http\Controllers\System\Dashboard\DashboardController as SystemDashboardController;
 use App\Http\Controllers\System\HomeController;
 use App\Http\Controllers\System\Settings\SettingsController;
+use App\Http\Controllers\System\Users\TwoFAController;
 use App\Http\Controllers\System\Users\UsersController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +31,9 @@ Route::prefix('/')->group(function () {
 Route::prefix('auth')->group(function () {
     Route::get ('/',                              [AuthController::class, 'auth'])->name('auth');
     Route::post('/authenticate',                  [AuthController::class, 'authenticate'])->name('auth.authenticate');
+    // When 2FA is enabled
+    Route::get ('/two-fa',                        [AuthController::class, 'twoFA'])->name('auth.two-fa');
+    Route::post('/verify-two-fa',                 [AuthController::class, 'verifyTwoFA'])->name('auth.two-fa.verify');
     Route::get ('/logout',                        [AuthController::class, 'logout'])->name('auth.logout');
 
     /* Create an account */
@@ -58,7 +62,7 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
     });
 
     /** Users routes; */
-    Route::prefix('users')->middleware('isAuthenticated')->group(function () {
+    Route::prefix('users')->middleware('isAdmin')->group(function () {
         Route::get ('/',                          [UsersController::class, 'index'])->name('system.users');
         Route::get ('/create',                    [UsersController::class, 'create'])->name('system.users.create');
         Route::post('/save',                      [UsersController::class, 'save'])->name('system.users.save');
@@ -66,6 +70,17 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
         Route::get ('/edit/{username}',           [UsersController::class, 'edit'])->name('system.users.edit');
         Route::post('/update',                    [UsersController::class, 'update'])->name('system.users.update');
         Route::post('/update-profile-image',      [UsersController::class, 'updateProfileImage'])->name('system.users.update-profile-image');
+
+        /** My profile */
+        Route::prefix('my-profile')->middleware('isAuthenticated')->group(function () {
+            /** 2FA */
+            Route::prefix('two-fa')->group(function () {
+                Route::get ('/',                        [TwoFAController::class, 'home'])->name('system.users.my-profile.two-fa');
+                Route::get ('/setup',                   [TwoFAController::class, 'setup'])->name('system.users.my-profile.two-fa.setup');
+                Route::post('/activate',                [TwoFAController::class, 'activate'])->name('system.users.my-profile.two-fa.activate');
+                Route::post('/deactivate',              [TwoFAController::class, 'deactivate'])->name('system.users.my-profile.two-fa.deactivate');
+            });
+        });
     });
 
     /**

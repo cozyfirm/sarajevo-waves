@@ -55,12 +55,16 @@ $( document ).ready(function() {
                     }, 3000); // 3 seconds
                 }else{
                     // Email warnings
-                    if(code === '1101'){
+                    if(code === '1101' || code === '1103'){
                         emailWrapper.append(function (){ return $("<span>").text(response['message']); });
                     }
                     // Password warnings
-                    if(code === '1102' || code === '1103'){
+                    if(code === '1102' || code === '1104'){
                         passwordWrapper.find('.forgot-password').before($("<span>").text(response['message']));
+                    }
+
+                    if(code === '1105'){
+                        window.location.href = response['url'];
                     }
                 }
             },
@@ -80,6 +84,65 @@ $( document ).ready(function() {
             if($(".auth-btn").length) signMeIn();
         }
     });
+
+    /** ------------------------------------------------------------------------------------------------------------- */
+    /**
+     *  Verify 2FA
+     */
+
+    const twoFAInputs = $('.otp-input');
+
+    let checkAndSubmit = function () {
+        let code = '';
+        twoFAInputs.each(function () {
+            code += $(this).val();
+        });
+        if (code.length === 6) sendCode(code);
+    }
+
+    twoFAInputs.on('input', function () {
+        this.value = this.value.replace(/\D/g, '');
+        const index = twoFAInputs.index(this);
+        if (this.value && index < twoFAInputs.length - 1) {
+            twoFAInputs.eq(index + 1).focus();
+        }
+        checkAndSubmit();
+    });
+    twoFAInputs.on('keydown', function (e) {
+        const index = twoFAInputs.index(this);
+        if (e.key === 'Backspace' && !this.value && index > 0) {
+            twoFAInputs.eq(index - 1).focus();
+        }
+    });
+
+    $(".two-fa-btn").click(function () {
+        checkAndSubmit();
+    });
+
+    let sendCode = function (code) {
+        $.ajax({
+            url: "/auth/verify-two-fa",
+            method: 'POST',
+            dataType: "json",
+            data: {
+                code: code
+            },
+            success: function (res) {
+                if(res['code'] === '0000'){
+                    Notify.Me([res['message'], "success"]);
+
+                    setTimeout(function () {
+                        window.location.href = res['url'];
+                    }, 3000); // 3 seconds
+                }else{
+                    Notify.Me([res['message'], "warn"]);
+                }
+            },
+            error: function () {
+                Notify.Me(["Greška prilikom obrade podataka", "warn"]);
+            }
+        });
+    }
 
     /** ------------------------------------------------------------------------------------------------------------- */
     /**

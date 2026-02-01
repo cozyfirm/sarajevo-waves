@@ -30,7 +30,6 @@ export class Notify {
 
         if(options.length >= 1) this.params['message'] = options[0];
 
-        console.log(options);
 
         if(options.length >= 2) {
             if(options[1] === 'success'){

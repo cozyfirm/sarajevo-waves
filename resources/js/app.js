@@ -68,3 +68,6 @@ $(document).ready(function() {
 
 import "./admin/app/core/notifications.js";
 import "./admin/app/core/show-hide-elements.js";
+
+// Users scripts
+import "./admin/app/users/users.js";

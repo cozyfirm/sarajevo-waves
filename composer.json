@@ -9,6 +9,7 @@
         "laravel/framework": "^11.9",
         "laravel/sanctum": "^4.3",
         "laravel/tinker": "^2.9",
+        "simplesoftwareio/simple-qrcode": "^4.2",
         "spatie/laravel-html": "^3.11"
     },
     "require-dev": {

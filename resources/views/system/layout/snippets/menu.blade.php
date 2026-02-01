@@ -32,7 +32,19 @@
 
         <!-- Right top icons -->
         <div class="right-icons">
-            <div class="single-li main-search-w" title="">
+            <div class="single-li" title="{{ __('2FA (Two factor identification)') }}">
+                <a href="{{ route('system.users.my-profile.two-fa') }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" class="two-fa">
+                        @if(Auth()->user()->two_fa)
+                            <path class="active" d="M320 64C324.6 64 329.2 65 333.4 66.9L521.8 146.8C543.8 156.1 560.2 177.8 560.1 204C559.6 303.2 518.8 484.7 346.5 567.2C329.8 575.2 310.4 575.2 293.7 567.2C121.3 484.7 80.6 303.2 80.1 204C80 177.8 96.4 156.1 118.4 146.8L306.7 66.9C310.9 65 315.4 64 320 64z"/>
+                        @else
+                            <path d="M320 64C324.6 64 329.2 65 333.4 66.9L521.8 146.8C543.8 156.1 560.2 177.8 560.1 204C559.6 303.2 518.8 484.7 346.5 567.2C329.8 575.2 310.4 575.2 293.7 567.2C121.3 484.7 80.6 303.2 80.1 204C80 177.8 96.4 156.1 118.4 146.8L306.7 66.9C310.9 65 315.4 64 320 64zM320 130.8L320 508.9C458 442.1 495.1 294.1 496 205.5L320 130.9L320 130.9z"/>
+                        @endif
+                    </svg>
+                </a>
+            </div>
+
+            <div class="single-li main-search-w d-none" title="">
                 <i class="fas fa-search main-search-t" title="{{__('Pretražite')}}"></i>
 {{--                @include('system.template.menu.menu-includes.search')--}}
             </div>

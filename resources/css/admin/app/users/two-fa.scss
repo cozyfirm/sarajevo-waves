@@ -1,0 +1,38 @@
+.ps-row{
+    position: relative; width: 100%; display: flex; justify-content: space-between; gap: 24px;
+    border: 1px solid #e8e7ea; transition: 0.2s all ease-in-out; padding: 24px; border-radius: 8px;
+
+    @media only screen and (max-width: 800px) {
+        flex-wrap: wrap; gap: 16px; padding: 16px;
+    }
+    h4{
+        font-size: 18px;
+    }
+    p{font-size: 14px;}
+
+    .ps-col{
+        position: relative; display: flex; flex-direction: column; max-width: 60%; gap: 8px;
+        @media only screen and (max-width: 800px) {
+            max-width: 100%; width: 100%;
+        }
+
+        &:last-child{
+            justify-content: center;
+            @media only screen and (max-width: 800px) {
+                align-items: flex-end;
+            }
+        }
+        .ps-toggle {
+            width: 50px; height: 22px; background: #e8e7ea; border-radius: 20px; position: relative; cursor: pointer; transition: background 0.2s ease;
+            &::after {
+                content: ""; width: 18px; height: 18px; background: white; border-radius: 50%; position: absolute; top: 2px; left: 2px; transition: left 0.2s ease;
+            }
+
+            /* Active state */
+            &.active {
+                background: $primary;
+                &::after{left: 30px;}
+            }
+        }
+    }
+}

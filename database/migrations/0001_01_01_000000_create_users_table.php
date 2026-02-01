@@ -19,6 +19,10 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('api_token')->nullable();
+            /* 2FA */
+            $table->boolean('two_fa')->default(false);
+            $table->text('two_fa_secret')->nullable();
+
             $table->rememberToken();
 
             /* Role data */

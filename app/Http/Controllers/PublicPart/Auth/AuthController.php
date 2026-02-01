@@ -7,6 +7,7 @@ use App\Mail\Users\RestartPassword;
 use App\Models\Core\Country;
 use App\Models\User;
 use App\Models\Users\RestartToken;
+use App\Services\Users\TwoFA\TwoFAService;
 use App\Traits\Common\LogTrait;
 use App\Traits\Http\ResponseTrait;
 use App\Traits\Users\UserBaseTrait;
@@ -15,6 +16,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
@@ -41,25 +43,92 @@ class AuthController extends Controller{
             if(empty($request->email)) return $this->jsonError('1101',  __('Unesi svoj email'));
             if(empty($request->password)) return $this->jsonError('1102',  __('Unesi svoju šifru'));
 
-            if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
-                // Regenerate new session at auth attempt (Used for sanctum)
+            $user = User::where('email', '=', $request->email)->first();
+            if(!$user) return $this->jsonError('1103',  __('Nepoznata email adresa'));
+
+            if (!Hash::check($request->password, $user->password)) {
+                return $this->jsonError('1104', __('Pogrešni pristupni podaci'));
+            }
+
+            if($user->role == 'admin' or $user->role == 'moderator'){
+                // Only for admins 2FA is enabled
+                if($user->two_fa){
+                    // 2FA is enabled, save user id into session and return info for code verification
+                    session(['2fa:user:id' => $user->id ]);
+
+                    return $this->jsonError('1105', __('2FA verification required'), route('auth.two-fa'));
+                }else{
+                    // 2FA is disabled; Regenerate session, login and redirect
+                    $request->session()->regenerate();
+                    // Login user
+                    $user = Auth::user();
+                    // Log action for basic user
+                    $this->logAction($user, 'sign-in', __('Prijava na sistem'));
+                    // Redirect to dashboard
+                    return $this->jsonSuccess(__('Prijava uspješna!'), route('system.dashboard'));
+                }
+            }else{
+                // Other users; Regenerate session, login and redirect
                 $request->session()->regenerate();
                 // Login user
                 $user = Auth::user();
-
-                $route = route('public.home');
-                if($user->role == 'admin') $route = route('system.dashboard');
-
-                // Log user action
+                // Log action for basic user
                 $this->logAction($user, 'sign-in', __('Prijava na sistem'));
-
-                return $this->jsonSuccess(__('Prijava uspješna!'), $route);
-            }else {
-                return $this->jsonError('1103',  __('Pogrešni pristupni podaci'));
+                // Redirect to homepage
+                return $this->jsonSuccess(__('Prijava uspješna!'), route('public.home'));
             }
         }catch (\Exception $e){
             $this->write('AuthController::authenticate()', $e->getCode(), $e->getMessage(), $request);
             return $this->apiResponse('1100', __('Greška prilikom obrade zahtjeva. Molimo prijavi grešku!'));
+        }
+    }
+
+    /**
+     * Two FA authentication
+     * @return View
+     */
+    public function twoFA(): View{
+        return view($this->_path. 'two-fa');
+    }
+
+    public function verifyTwoFA(Request $request): JsonResponse{
+        try{
+            if (!isset($request->code) || strlen($request->code) !== 6) {
+                return $this->jsonError('1111', __('Neispravan kod'));
+            }
+
+            $userId = session('2fa:user:id');
+            if (!$userId) {
+                return $this->jsonError('1112', __('Sesija je istekla. Prijavite se ponovo.'));
+            }
+            $user = User::where('id', '=', $userId)->first();
+            if (!$user) {
+                return $this->jsonError('1113', __('Korisnik ne postoji'));
+            }
+
+            try {
+                $secret = Crypt::decryptString($user->two_fa_secret);
+            } catch (\Exception $e) {
+                return $this->jsonError('1114', __('2FA secret nije validan. Podesite 2FA ponovo.'));
+            }
+
+            if (!TwoFAService::verifyCode($secret, $request->code)) {
+                return $this->jsonError('1115', __('Pogrešan 2FA kod'));
+            }
+
+            // Forget previous session
+            $request->session()->forget('2fa:user:id');
+            // Login user
+            Auth::login($user);
+            // 2FA is disabled; Regenerate session, login and redirect
+            $request->session()->regenerate();
+            // Log action for basic user
+            $this->logAction($user, 'sign-in', __('Prijava na sistem'));
+            // Redirect to dashboard
+            return $this->jsonSuccess(__('Prijava uspješna!'), route('system.dashboard'));
+        }catch (\Exception $e){
+            $this->write('AuthController::verifyTwoFA()', $e->getCode(), $e->getMessage(), $request);
+            return $this->apiResponse('1110', __('Greška prilikom obrade zahtjeva. Molimo prijavi grešku!'));
         }
     }
 

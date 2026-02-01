@@ -25,10 +25,12 @@ $success: #33B3AE;
 $danger: #C84040;
 
 body{
-    font-family: -apple-system, BlinkMacSystemFont, sans-serif; letter-spacing: 0.0px; padding: 0px; margin:0px;
+    letter-spacing: 0.0px; padding: 0px; margin:0px;
     a{
         text-decoration: none; color: #333333;
     }
+    h1, h2, h3, h4, h5, h6, p, span, a, label, small, input{ margin: 0px; padding: 0px; font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
+
 
     // Class that cannot be selected
     .no-select {

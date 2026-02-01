@@ -70,6 +70,9 @@
                         font-size:10px; margin:0px; color:#fff; padding: 0px 4px;
                     }
                 }
+                .two-fa{
+                    .active{fill: $yellow;}
+                }
 
                 // ** Notifications wrapper ** //
                 @import "menu/notifications";
