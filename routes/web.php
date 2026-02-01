@@ -2,10 +2,11 @@
 
 use App\Http\Controllers\PublicPart\Auth\AuthController;
 use App\Http\Controllers\PublicPart\HomeController as PublicHomeController;
-use App\Http\Controllers\System\Common\FAQsController;
-use App\Http\Controllers\System\Common\KeywordsController;
+use App\Http\Controllers\System\Settings\FAQsController;
+use App\Http\Controllers\System\Settings\KeywordsController;
 use App\Http\Controllers\System\Dashboard\DashboardController as SystemDashboardController;
 use App\Http\Controllers\System\HomeController;
+use App\Http\Controllers\System\Settings\SettingsController;
 use App\Http\Controllers\System\Users\UsersController;
 use Illuminate\Support\Facades\Route;
 
@@ -68,6 +69,35 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
     });
 
     /**
+     *  1. Keywords
+     *  2. FAQs
+     */
+    Route::prefix('settings')->middleware('isAdmin')->group(function (){
+        Route::get ('/',                                        [SettingsController::class, 'home'])->name('system.settings');
+
+        /** Keywords module */
+        Route::prefix('keywords')->group(function () {
+            Route::get ('/',                                    [KeywordsController::class, 'index'])->name('system.settings.keywords');
+            Route::get ('/preview-instances/{key}',             [KeywordsController::class, 'previewInstances'])->name('system.settings.keywords.preview-instances');
+            Route::get ('/new-instance/{key}',                  [KeywordsController::class, 'newInstance'])->name('system.settings.keywords.new-instance');
+
+            Route::post('/save-instance',                       [KeywordsController::class, 'saveInstance'])->name('system.settings.keywords.save-instance');
+            Route::get ('/edit-instance/{id}',                  [KeywordsController::class, 'editInstance'])->name('system.settings.keywords.edit-instance');
+            Route::post('/update-instance',                     [KeywordsController::class, 'updateInstance'])->name('system.settings.keywords.update-instance');
+            Route::get ('/delete-instance/{id}',                [KeywordsController::class, 'deleteInstance'])->name('system.settings.keywords.delete-instance');
+        });
+
+        /** FAQs module */
+        Route::prefix('faq')->middleware('isAuthenticated')->group(function () {
+            Route::get ('/',                               [FAQsController::class, 'index'])->name('system.settings.faq');
+            Route::get ('/create',                         [FAQsController::class, 'create'])->name('system.settings.faq.create');
+            Route::post('/save',                           [FAQsController::class, 'save'])->name('system.settings.faq.save');
+            Route::get ('/edit/{id}',                      [FAQsController::class, 'edit'])->name('system.settings.faq.edit');
+            Route::post('/update',                         [FAQsController::class, 'update'])->name('system.settings.faq.update');
+            Route::get ('/delete/{id}',                    [FAQsController::class, 'delete'])->name('system.settings.faq.delete');
+        });
+    });
+    /**
      *  Root Admin routes
      */
     Route::prefix('admin')->middleware('isAdmin')->group(function (){
@@ -83,14 +113,7 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
             /**
              *  FAQs section
              */
-            Route::prefix('faq')->middleware('isAuthenticated')->group(function () {
-                Route::get ('/',                               [FAQsController::class, 'faqIndex'])->name('system.admin.other.faq');
-                Route::get ('/create',                         [FAQsController::class, 'faqCreate'])->name('system.admin.other.faq.create');
-                Route::post('/save',                           [FAQsController::class, 'faqSave'])->name('system.admin.other.faq.save');
-                Route::get ('/edit/{id}',                      [FAQsController::class, 'faqEdit'])->name('system.admin.other.faq.edit');
-                Route::post('/update',                         [FAQsController::class, 'faqUpdate'])->name('system.admin.other.faq.update');
-                Route::get ('/delete/{id}',                    [FAQsController::class, 'faqDelete'])->name('system.admin.other.faq.delete');
-            });
+
         });
 
         /**
@@ -101,16 +124,7 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
             /**
              *  FAQs section
              */
-            Route::prefix('keywords')->group(function () {
-                Route::get ('/',                                    [KeywordsController::class, 'index'])->name('system.admin.core.keywords');
-                Route::get ('/preview-instances/{key}',             [KeywordsController::class, 'previewInstances'])->name('system.admin.core.keywords.preview-instances');
-                Route::get ('/new-instance/{key}',                  [KeywordsController::class, 'newInstance'])->name('system.admin.core.keywords.new-instance');
 
-                Route::post('/save-instance',                       [KeywordsController::class, 'saveInstance'])->name('system.admin.core.keywords.save-instance');
-                Route::get ('/edit-instance/{id}',                  [KeywordsController::class, 'editInstance'])->name('system.admin.core.keywords.edit-instance');
-                Route::post('/update-instance',                     [KeywordsController::class, 'updateInstance'])->name('system.admin.core.keywords.update-instance');
-                Route::get ('/delete-instance/{id}',                [KeywordsController::class, 'deleteInstance'])->name('system.admin.core.keywords.delete-instance');
-            });
         });
 
         /**

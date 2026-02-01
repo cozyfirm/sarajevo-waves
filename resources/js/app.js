@@ -29,12 +29,12 @@ $(document).ready(function() {
 
     /* Global linking */
     $("body").on('click', '.go-to', function (){
-        let link = $(this).attr('link');
+        let url = $(this).data('url');
         let hasClass = $(this).hasClass('new-window');
 
         setTimeout(function (){
-            if(hasClass) window.open(link, '_blank');
-            else window.location = link;
+            if(hasClass) window.open(url, '_blank');
+            else window.location = url;
         }, 100);
     });
 
