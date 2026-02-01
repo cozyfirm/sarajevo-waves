@@ -9,7 +9,7 @@
 
     // ** Application name ** //
     .app-name{
-        position: absolute; left: 0px; top:0px; width: 320px; height: 80px; display: flex; align-items: center;
+        position: absolute; left: 0px; top:0px; width: 320px; height: 80px; display: flex; align-items: center; justify-content: space-between;
         h1{
             font-size: 30px; margin-left:20px; color:$primary; padding-top:4px;
         }
@@ -20,6 +20,13 @@
             position: absolute; right: 20px; font-size: 20px; top: 30px; display: none;
         }
         i:hover{ cursor: pointer; color: $primary;}
+        svg{
+            height: 24px; margin-right: 20px; transition: 0.3s all ease-in-out; display: none;
+            &:hover{
+                cursor: pointer;
+                path{fill: $yellow;}
+            }
+        }
     }
 
     .top-menu-links{
@@ -50,22 +57,22 @@
         .right-icons{
             position: absolute; right:30px; top:0px; min-width:200px; height: 100%; display: inline-flex; justify-content: flex-end;
             .single-li{
-                position: relative; height: 40px; display: inline-flex; margin:0px 10px;
+                position: relative; height: 40px; display: flex; margin:0px 10px; align-items: center; gap: 16px;
                 p{
-                    margin:0px; padding-top:10px; margin-left:10px; font-size:14px;
+                    margin:0px; font-size:14px;
                 }
-                i{
-                    padding-top:13px; color:#333; font-size:14px;
+                i, svg{
+                     color:#333; font-size:14px; height: 18px;
                 }
                 .number-of{
-                    position: absolute; right:-6px; top:2px; height: 14px; background: $primaryColor; border-radius:2px;
+                    position: absolute; right:-10px; top:2px; height: 14px; background: $primaryColor; border-radius:2px;
                     p{
-                        font-size:10px; margin:0px; color:#fff; padding-top:0px; padding-left:3px; padding-right:3px;
+                        font-size:10px; margin:0px; color:#fff; padding: 0px 4px;
                     }
                 }
 
                 // ** Notifications wrapper ** //
-                // @import "menu-includes/notifications";
+                @import "menu/notifications";
 
                 // ** Search ** //
                 // @import "menu-includes/search";
@@ -80,7 +87,7 @@
 @media only screen and (max-width: 1500px) {
     .s-top-menu{
         .app-name{
-            i{display: block;}
+            i, svg{display: flex;}
         }
     }
 }
@@ -114,6 +121,7 @@
     height: calc(100% - 80px);
     -webkit-box-shadow: 0 3px 30px rgba(0, 0, 0, 0.1), 0 3px 20px rgba(0, 0, 0, 0.1);
     z-index: 100; background: #fff;
+    transition: 0.3s all;
 
     // ** User short info ** //
     .user-info{

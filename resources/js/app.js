@@ -60,3 +60,11 @@ $(document).ready(function() {
         dateFormat: "d.m.Y"
     });
 });
+
+/** ----------------------------------------------------------------------------------------------------------------- */
+/**
+ *  Application includes
+ */
+
+import "./admin/app/core/notifications.js";
+import "./admin/app/core/show-hide-elements.js";

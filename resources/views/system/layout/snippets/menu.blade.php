@@ -3,7 +3,9 @@
         <a title="{{__('Naslovna strana')}}">
             <img src="{{ asset('files/images/logo.png') }}" alt="{{ __('Logo image') }}">
         </a>
-        <i class="fas fa-bars t-3 system-m-i-t" title="{{__('Otvorite / zatvorite MENU')}}"></i>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" class="system-m-i-t">
+            <path d="M96 160C96 142.3 110.3 128 128 128L512 128C529.7 128 544 142.3 544 160C544 177.7 529.7 192 512 192L128 192C110.3 192 96 177.7 96 160zM96 320C96 302.3 110.3 288 128 288L512 288C529.7 288 544 302.3 544 320C544 337.7 529.7 352 512 352L128 352C110.3 352 96 337.7 96 320zM544 480C544 497.7 529.7 512 512 512L128 512C110.3 512 96 497.7 96 480C96 462.3 110.3 448 128 448L512 448C529.7 448 544 462.3 544 480z"/>
+        </svg>
     </div>
 
     <div class="top-menu-links">
@@ -35,14 +37,18 @@
 {{--                @include('system.template.menu.menu-includes.search')--}}
             </div>
             <div class="single-li m-show-notifications" title="Pregled obavijesti">
-                <i class="fas fa-bell"></i>
-                <div class="number-of"><p id="no-unread-notifications">12</p></div>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" class="m-show-notifications-icon">
+                    <path d="M320 64C306.7 64 296 74.7 296 88L296 97.7C214.6 109.3 152 179.4 152 264L152 278.5C152 316.2 142 353.2 123 385.8L101.1 423.2C97.8 429 96 435.5 96 442.2C96 463.1 112.9 480 133.8 480L506.2 480C527.1 480 544 463.1 544 442.2C544 435.5 542.2 428.9 538.9 423.2L517 385.7C498 353.1 488 316.1 488 278.4L488 263.9C488 179.3 425.4 109.2 344 97.6L344 87.9C344 74.6 333.3 63.9 320 63.9zM488.4 432L151.5 432L164.4 409.9C187.7 370 200 324.6 200 278.5L200 264C200 197.7 253.7 144 320 144C386.3 144 440 197.7 440 264L440 278.5C440 324.7 452.3 370 475.5 409.9L488.4 432zM252.1 528C262 556 288.7 576 320 576C351.3 576 378 556 387.9 528L252.1 528z"/>
+                </svg>
+                <div class="number-of"><p id="no-unread-notifications no-select">12</p></div>
 
-{{--                @include('system.template.menu.menu-includes.notifications')--}}
+                @include('system.layout.snippets.includes.notifications')
             </div>
-            <div class="single-li main-search-w" title="">
+            <div class="single-li main-search-w" title="{{ __('Odjavi se') }}">
                 <a href="{{ route('auth.logout') }}">
-                    <i class="fas fa-power-off" title="{{__('Odjavite se')}}"></i>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                        <path d="M352 64C352 46.3 337.7 32 320 32C302.3 32 288 46.3 288 64L288 320C288 337.7 302.3 352 320 352C337.7 352 352 337.7 352 320L352 64zM210.3 162.4C224.8 152.3 228.3 132.3 218.2 117.8C208.1 103.3 188.1 99.8 173.6 109.9C107.4 156.1 64 233 64 320C64 461.4 178.6 576 320 576C461.4 576 576 461.4 576 320C576 233 532.6 156.1 466.3 109.9C451.8 99.8 431.9 103.3 421.7 117.8C411.5 132.3 415.1 152.2 429.6 162.4C479.4 197.2 511.9 254.8 511.9 320C511.9 426 425.9 512 319.9 512C213.9 512 128 426 128 320C128 254.8 160.5 197.1 210.3 162.4z"/>
+                    </svg>
                 </a>
             </div>
             <a href="#">
