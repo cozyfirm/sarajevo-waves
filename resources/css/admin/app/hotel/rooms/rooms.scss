@@ -71,16 +71,17 @@
 
 // Devices wrapper | Inside room
 .devices-wrapper{
-    position: relative; width: 100%; display: flex; min-height: 60px; flex-wrap: wrap; gap: 32px; padding-top: 24px;
+    position: relative; width: 100%; display: flex; min-height: 60px; flex-wrap: wrap; gap: 24px; padding-top: 24px;
 
     .single-device{
-        position: relative; width: calc((100% - (3 * 32px)) / 4); min-height: 50px; background: #ffffff; transition: 0.2s all ease-in-out; border-radius: 4px;
-        padding: 16px; gap: 16px; display: flex; flex-direction: column;
+        position: relative; width: calc((100% - (3 * 24px)) / 4); min-height: 50px; background: #ffffff; transition: 0.2s all ease-in-out; border-radius: 8px;
+        padding: 16px; gap: 16px; display: flex; flex-direction: column; border: 1px solid #fff;
 
         &.active{
-            background: $yellow;
+            border-color: rgba(245, 177, 42, 0.3);
+            background: #fffaf2;
             .sd-header{
-                svg{ path{fill: #ffffff;} }
+                svg{ path{fill: #f5b12a;} }
                 .switch-wrapper{
                     background: #e3e6ea;
                     &::after{
@@ -90,7 +91,7 @@
             }
             .sd-body{
                 .info{
-                    h6{color: #ffffff;}
+                    h6{color: #333333;}
                 }
             }
         }
@@ -140,13 +141,59 @@
             .info{
                 position: relative; display: flex; justify-content: center; flex-direction: column;
                 h6{
-                    font-size: 18px; font-weight: bold;
+                    font-size: 16px; font-weight: bold;
                 }
                 p{font-size: 12px; color: grey;}
             }
             .power-info{
                 position: relative; display: flex; align-items: center;
                 p{font-weight: bold; text-transform: uppercase;}
+            }
+        }
+    }
+
+    .door-card{
+        position: relative; background: #ffffff; border-radius: 8px; padding: 16px; display: flex; justify-content: space-between;
+        align-items: center; border: 1px solid rgba(0,0,0,0.05); transition: 0.2s ease;  width: calc((100% - (2 * 24px)) / 3);
+
+        .door-left{
+            display: flex; align-items: center; gap: 12px;
+        }
+
+        .icon{
+            width: 42px; height: 42px; border-radius: 10px; background: #f4f4f4; display: flex; align-items: center; justify-content: center; font-size: 16px; color: #777;
+            svg{
+                height: 24px;
+                path{fill: #ffffff;}
+            }
+        }
+
+        .content{
+            h4{
+                margin: 0; font-size: 14px; font-weight: 600; color: #111;
+            }
+            p{
+                margin: 0; font-size: 12px; color: #9aa0a6;
+            }
+        }
+
+        .badge{
+            font-size: 11px; padding: 4px 10px; border-radius: 999px; background: #f1f1f1; color: #777; font-weight: 600;
+        }
+
+        /* OPEN state */
+        &.open{
+            border-color: rgba(245, 177, 42, 0.3);
+            background: #fffaf2;
+
+            .icon{
+                background: #f5b12a; color: #fff;
+            }
+            .badge{
+                background: rgba(245, 177, 42, 0.15); color: #c07b00;
+            }
+            .content p{
+                color: #c07b00;
             }
         }
     }

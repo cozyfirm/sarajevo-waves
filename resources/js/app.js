@@ -10,9 +10,11 @@ import 'bootstrap-datepicker';
 import './admin/layout/menu.js';
 import './admin/layout/filters.js';
 
-
 /* Import Submit script */
 import "./style/submit.js";
+
+// Import hotel scripts
+import "./admin/app/hotel/hotel.js";
 
 /**
  *  Import public scripts such as:

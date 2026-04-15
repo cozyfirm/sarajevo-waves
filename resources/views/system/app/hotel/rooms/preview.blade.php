@@ -4,13 +4,19 @@
         <path d="M144 336C144 288.7 109.8 249.4 64.8 241.5C72 177.6 126.2 128 192 128L448 128C513.8 128 568 177.6 575.2 241.5C530.2 249.5 496 288.7 496 336L496 368L144 368L144 336zM0 448L0 336C0 309.5 21.5 288 48 288C74.5 288 96 309.5 96 336L96 416L544 416L544 336C544 309.5 565.5 288 592 288C618.5 288 640 309.5 640 336L640 448C640 483.3 611.3 512 576 512L64 512C28.7 512 0 483.3 0 448z"/>
     </svg>
 @endsection
-@section('c-title') {{ __('Sobe') }} @endsection
+@section('c-title') {{ __('Soba') }} {{ $room->number ?? '100' }} @endsection
 @section('c-breadcrumbs')
     <a href="{{ route('system.dashboard') }}"> <p>{{ __('Pametno upravljanje hotelom') }}</p> </a>
 @endsection
 @section('c-buttons')
     <a href="{{ route('system.hotel.dashboard') }}">
         <button class="pm-btn btn btn-dark"><img src="{{ asset('files/images/icons/star-white.svg') }}" alt="{{ __('Star') }}"> </button>
+    </a>
+    <a href="{{ route('system.hotel.rooms.dashboard') }}">
+        <button class="pm-btn btn pm-btn-info">
+            <img src="{{ asset('files/images/icons/chevron-left-w.svg') }}" alt="{{ __('Left') }}">
+            <span>{{ __('Nazad') }}</span>
+        </button>
     </a>
 @endsection
 
@@ -19,15 +25,15 @@
         <div class="homepage-main preview">
             <div class="home-row borderless">
                 <div class="home-row-header white">
+                    <h4> {{__('RASVJETNA TIJELA')}} </h4>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
                         <path d="M424.5 355.1C449 329.2 464 294.4 464 256C464 176.5 399.5 112 320 112C240.5 112 176 176.5 176 256C176 294.4 191 329.2 215.5 355.1C236.8 377.5 260.4 409.1 268.8 448L371.2 448C379.6 409 403.2 377.5 424.5 355.1zM459.3 388.1C435.7 413 416 443.4 416 477.7L416 496C416 540.2 380.2 576 336 576L304 576C259.8 576 224 540.2 224 496L224 477.7C224 443.4 204.3 413 180.7 388.1C148 353.7 128 307.2 128 256C128 150 214 64 320 64C426 64 512 150 512 256C512 307.2 492 353.7 459.3 388.1zM272 248C272 261.3 261.3 272 248 272C234.7 272 224 261.3 224 248C224 199.4 263.4 160 312 160C325.3 160 336 170.7 336 184C336 197.3 325.3 208 312 208C289.9 208 272 225.9 272 248z"/>
                     </svg>
-                    <h4> {{__('RASVJETNA TIJELA')}} </h4>
                 </div>
 
                 <div class="devices-wrapper">
-                    @for($i=0; $i<8; $i++)
-                        <div class="single-device light @if($i==3) active @endif">
+                    @foreach($lights as $light)
+                        <div class="single-device light @if($light->status) active @endif">
                             <div class="sd-header">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
                                     <path d="M424.5 355.1C449 329.2 464 294.4 464 256C464 176.5 399.5 112 320 112C240.5 112 176 176.5 176 256C176 294.4 191 329.2 215.5 355.1C236.8 377.5 260.4 409.1 268.8 448L371.2 448C379.6 409 403.2 377.5 424.5 355.1zM459.3 388.1C435.7 413 416 443.4 416 477.7L416 496C416 540.2 380.2 576 336 576L304 576C259.8 576 224 540.2 224 496L224 477.7C224 443.4 204.3 413 180.7 388.1C148 353.7 128 307.2 128 256C128 150 214 64 320 64C426 64 512 150 512 256C512 307.2 492 353.7 459.3 388.1zM272 248C272 261.3 261.3 272 248 272C234.7 272 224 261.3 224 248C224 199.4 263.4 160 312 160C325.3 160 336 170.7 336 184C336 197.3 325.3 208 312 208C289.9 208 272 225.9 272 248z"/>
@@ -38,50 +44,74 @@
 
                             <div class="sd-body">
                                 <div class="info">
-                                    <h6>{{ __('Welcome light') }}</h6>
+                                    <h6>{{ $light->title ?? 'Room light' }}</h6>
                                     <p>{{ __('Aktivno: 3h 30min') }}</p>
                                 </div>
                                 <div class="power-info">
-                                    <p>ON</p>
+                                    <p> {{ $light->statusRel->name ?? 'Off' }} </p>
                                 </div>
                             </div>
                         </div>
-                    @endfor
+                    @endforeach
                 </div>
             </div>
 
             <div class="home-row borderless">
                 <div class="home-row-header white">
+                    <h4> {{__('VRATA I PROZORI')}} </h4>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
                         <path d="M384 128L448 128L448 544C448 561.7 462.3 576 480 576L512 576C529.7 576 544 561.7 544 544C544 526.3 529.7 512 512 512L512 128C512 92.7 483.3 64 448 64L352 64L352 64L192 64C156.7 64 128 92.7 128 128L128 512C110.3 512 96 526.3 96 544C96 561.7 110.3 576 128 576L352 576C369.7 576 384 561.7 384 544L384 128zM256 320C256 302.3 270.3 288 288 288C305.7 288 320 302.3 320 320C320 337.7 305.7 352 288 352C270.3 352 256 337.7 256 320z"/>
                     </svg>
-                    <h4> {{__('VRATA I PROZORI')}} </h4>
                 </div>
 
                 <div class="devices-wrapper">
-                    <div class="single-device doors">
-                        <div class="sd-body">
-                            <div class="info">
-                                <h6>{{ __('Ulazna vrata') }}</h6>
-                                <p>{{ __('Status: Otvorena') }}</p>
+                    <div class="door-card open">
+                        <div class="door-left">
+                            <div class="icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                                    <path d="M384 128L448 128L448 544C448 561.7 462.3 576 480 576L512 576C529.7 576 544 561.7 544 544C544 526.3 529.7 512 512 512L512 128C512 92.7 483.3 64 448 64L352 64L352 64L192 64C156.7 64 128 92.7 128 128L128 512C110.3 512 96 526.3 96 544C96 561.7 110.3 576 128 576L352 576C369.7 576 384 561.7 384 544L384 128zM256 320C256 302.3 270.3 288 288 288C305.7 288 320 302.3 320 320C320 337.7 305.7 352 288 352C270.3 352 256 337.7 256 320z"/>
+                                </svg>
+                            </div>
+
+                            <div class="content">
+                                <h4>{{ __('Ulazna vrata') }}</h4>
+                                <p>{{ __('Otvorena') }}</p>
                             </div>
                         </div>
+
+                        <span class="badge">{{ __('OPEN') }}</span>
                     </div>
-                    <div class="single-device doors">
-                        <div class="sd-body">
-                            <div class="info">
-                                <h6>{{ __('Balkonska vrata') }}</h6>
-                                <p>{{ __('Status: Zatvorena') }}</p>
+                    <div class="door-card">
+                        <div class="door-left">
+                            <div class="icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                                    <path d="M384 128L448 128L448 544C448 561.7 462.3 576 480 576L512 576C529.7 576 544 561.7 544 544C544 526.3 529.7 512 512 512L512 128C512 92.7 483.3 64 448 64L352 64L352 64L192 64C156.7 64 128 92.7 128 128L128 512C110.3 512 96 526.3 96 544C96 561.7 110.3 576 128 576L352 576C369.7 576 384 561.7 384 544L384 128zM256 320C256 302.3 270.3 288 288 288C305.7 288 320 302.3 320 320C320 337.7 305.7 352 288 352C270.3 352 256 337.7 256 320z"/>
+                                </svg>
+                            </div>
+
+                            <div class="content">
+                                <h4>{{ __('Balkonska vrata') }}</h4>
+                                <p>{{ __('Zatvorena') }}</p>
                             </div>
                         </div>
+
+                        <span class="badge">{{ __('ClOSED') }}</span>
                     </div>
-                    <div class="single-device doors">
-                        <div class="sd-body">
-                            <div class="info">
-                                <h6>{{ __('Balkonska vrata') }}</h6>
-                                <p>{{ __('Status: Zatvorena') }}</p>
+                    <div class="door-card">
+                        <div class="door-left">
+                            <div class="icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                                    <path d="M384 128L448 128L448 544C448 561.7 462.3 576 480 576L512 576C529.7 576 544 561.7 544 544C544 526.3 529.7 512 512 512L512 128C512 92.7 483.3 64 448 64L352 64L352 64L192 64C156.7 64 128 92.7 128 128L128 512C110.3 512 96 526.3 96 544C96 561.7 110.3 576 128 576L352 576C369.7 576 384 561.7 384 544L384 128zM256 320C256 302.3 270.3 288 288 288C305.7 288 320 302.3 320 320C320 337.7 305.7 352 288 352C270.3 352 256 337.7 256 320z"/>
+                                </svg>
+                            </div>
+
+                            <div class="content">
+                                <h4>{{ __('Balkonska vrata') }}</h4>
+                                <p>{{ __('Zatvorena') }}</p>
                             </div>
                         </div>
+
+                        <span class="badge">{{ __('ClOSED') }}</span>
                     </div>
                 </div>
             </div>

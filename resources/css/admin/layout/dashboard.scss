@@ -22,9 +22,9 @@
                     color:#fff; position:absolute; left:20px; margin-top:16px; font-size:18px;
                 }
                 &.white{
-                    display: flex; align-items: center; gap: 8px;
+                    display: flex; align-items: center; gap: 8px; padding: 0px 16px; justify-content: space-between;
                     svg{
-                        height: 20px; margin: 0px; margin-left: 20px;
+                        height: 20px; margin: 0px;
                     }
                     background: #ffffff;
                     h4{color: #333333; margin: 0px; position: relative; left: 0px; padding-top: 2px; }
