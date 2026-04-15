@@ -3,7 +3,10 @@
 namespace App\Traits\Http;
 
 
+use Illuminate\Support\Facades\Http;
+
 trait HttpTrait{
+    protected string $_url = 'http://localhost:1880';
 
     /**
      * @return mixed
@@ -17,5 +20,20 @@ trait HttpTrait{
         } else {
             return $_SERVER['REMOTE_ADDR'];
         }
+    }
+
+    /**
+     * Create http request to Node-Red
+     * @param $address
+     * @param $dpt
+     * @param $value
+     * @return mixed
+     */
+    public function httpToKNX($address, $dpt, $value): mixed{
+        return Http::post($this->_url . '/knx/light', [
+            'ga' => $address,
+            'dpt' => $dpt,
+            'value' => $value
+        ]);
     }
 }
