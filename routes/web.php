@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\PublicPart\Auth\AuthController;
 use App\Http\Controllers\PublicPart\HomeController as PublicHomeController;
+use App\Http\Controllers\System\Hotel\HotelController;
+use App\Http\Controllers\System\Hotel\RoomsController;
 use App\Http\Controllers\System\Settings\FAQsController;
 use App\Http\Controllers\System\Settings\KeywordsController;
 use App\Http\Controllers\System\Dashboard\DashboardController as SystemDashboardController;
@@ -62,7 +64,7 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
     });
 
     /** Users routes; */
-    Route::prefix('users')->middleware('isAdmin')->group(function () {
+    Route::prefix('users')->group(function () {
         Route::get ('/',                          [UsersController::class, 'index'])->name('system.users');
         Route::get ('/create',                    [UsersController::class, 'create'])->name('system.users.create');
         Route::post('/save',                      [UsersController::class, 'save'])->name('system.users.save');
@@ -80,6 +82,17 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
                 Route::post('/activate',                [TwoFAController::class, 'activate'])->name('system.users.my-profile.two-fa.activate');
                 Route::post('/deactivate',              [TwoFAController::class, 'deactivate'])->name('system.users.my-profile.two-fa.deactivate');
             });
+        });
+    });
+
+    /** Hotel management */
+    Route::prefix('hotel')->group(function (){
+        Route::get('/',                            [HotelController::class, 'dashboard'])->name('system.hotel.dashboard');
+
+        // Rooms
+        Route::prefix('rooms')->group(function (){
+            Route::get('/',                            [RoomsController::class, 'dashboard'])->name('system.hotel.rooms.dashboard');
+            Route::get('/preview/{id}',                [RoomsController::class, 'preview'])->name('system.hotel.rooms.preview');
         });
     });
 
@@ -140,28 +153,6 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
              *  FAQs section
              */
 
-        });
-
-        /**
-         *  Blog:: ToDo
-         */
-        Route::prefix('blog')->middleware('isAuthenticated')->group(function () {
-            Route::get ('/',                               [AdminBlogController::class, 'index'])->name('system.admin.blog');
-            Route::get ('/create',                         [AdminBlogController::class, 'create'])->name('system.admin.blog.create');
-            Route::post('/save',                           [AdminBlogController::class, 'save'])->name('system.admin.blog.save');
-            Route::get ('/preview/{id}',                   [AdminBlogController::class, 'preview'])->name('system.admin.blog.preview');
-            Route::get ('/edit/{id}',                      [AdminBlogController::class, 'edit'])->name('system.admin.blog.edit');
-            Route::post('/update',                         [AdminBlogController::class, 'update'])->name('system.admin.blog.update');
-            Route::get ('/delete/{id}',                    [AdminBlogController::class, 'delete'])->name('system.admin.blog.delete');
-
-            /*
-             *  Work with images
-             */
-            Route::post('/add-to-gallery',                 [AdminBlogController::class, 'addToGallery'])->name('system.admin.blog.add-to-gallery');
-            Route::get ('/delete-from-gallery/{id}',       [AdminBlogController::class, 'deleteFromGallery'])->name('system.admin.blog.delete-from-gallery');
-
-            Route::get ('/edit-image/{id}/{what}',         [AdminBlogController::class, 'editImage'])->name('system.admin.blog.edit-image');
-            Route::post('/update-image',                   [AdminBlogController::class, 'updateImage'])->name('system.admin.blog.update-image');
         });
     });
 });

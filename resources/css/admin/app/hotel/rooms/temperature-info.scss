@@ -1,0 +1,283 @@
+@use "sass:math";
+
+.temperature-and-sos{
+    position: relative; width: 420px; display: flex; flex-direction: column; gap: 24px; align-self: flex-start;
+
+    // Temperature
+    .temperature-info{
+        position: relative; width: 100%; align-self: flex-start;
+        background: #ffffff; transition: 0.2s all ease-in-out; border-radius: 8px; display: flex; flex-direction: column; gap: 24px; padding: 24px;
+
+        // UI Wrapper
+        .thermostat-wrapper{
+            position: relative; width: 100%; min-height: 200px; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 16px;
+
+            .tw-header{
+                position: relative; width: 100%; display: flex; justify-content: space-between;
+                // Info
+                .tw-text{
+                    position: relative; display: flex; gap: 16px; align-items: center;
+                    .icon{
+                        position: relative; width: 40px; height: 40px; border-radius: 50%; background: #F4F4F4; display: flex; justify-content: center; align-items: center;
+                        svg{
+                            height: 16px;
+                        }
+                    }
+                    .text{
+                        position: relative; display: flex; flex-direction: column; justify-content: center;
+                        h5{
+                            font-size: 16px; font-weight: bold;
+                        }
+                        p{font-size: 12px;}
+                    }
+                }
+                // Power on | off
+                .power-control{
+                    display: inline-flex; align-items: center; gap: 12px; background: #f2f2f2; padding: 6px 10px; border-radius: 999px;
+
+                    .toggle{
+                        display: flex; align-items: center; gap: 6px; font-size: 14px; color: #9aa0a6; font-weight: 500;
+
+                        span{
+                            transition: 0.2s ease;
+                        }
+                        .active{
+                            color: #111;
+                        }
+                        .dot{
+                            font-size: 10px; color: #c4c4c4; transform: translateY(-1px);
+                        }
+                    }
+
+                    .power-btn{
+                        width: 30px; height: 30px; border-radius: 50%; border: none; background: #000; color: #fff;
+                        font-size: 14px; display: flex; align-items: center; justify-content: center; cursor: pointer;
+
+                        box-shadow: 0 2px 6px rgba(0,0,0,0.15); transition: 0.2s ease;
+
+                        svg{
+                            height: 16px;
+                            path{fill: #ffffff;}
+                        }
+                        &:hover{
+                            transform: scale(1.05);
+                        }
+                        &:active{
+                            transform: scale(0.95);
+                        }
+                    }
+                }
+            }
+
+            // Thermostat
+            .thermostat{
+                position: relative; width: 220px; height: 220px;
+
+                .ticks{
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+
+                    span{
+                        position: absolute; width: 3px; height: 14px;  background: #dcdcdc; top: 0; left: 50%; transform-origin: center 110px; border-radius: 2px;
+                    }
+                }
+
+                .center{
+                    position: absolute;
+                    inset: 30px;
+                    border-radius: 50%;
+                    background: #f4f4f4;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    box-shadow:
+                        inset -4px -4px 8px rgba(255,255,255,0.7),
+                        inset 4px 4px 8px rgba(0,0,0,0.08);
+
+                    .inner{
+                        width: 120px;
+                        height: 120px;
+                        border-radius: 50%;
+                        background: #fafafa;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        box-shadow: inset 0 2px 6px rgba(0,0,0,0.08);
+                        flex-direction: column;
+                        p{
+                            font-size: 12px;
+                        }
+                        h4{
+                            font-size: 16px; font-weight: bold;
+                        }
+
+                        .icon{
+                            font-size: 18px;
+                            color: #aaa;
+                        }
+                    }
+                }
+            }
+
+            /* 15 tickova (16°C do 30°C) */
+            .ticks span:nth-child(1)  { transform: rotate(-120deg); }
+            .ticks span:nth-child(2)  { transform: rotate(-102deg); }
+            .ticks span:nth-child(3)  { transform: rotate(-84deg); }
+            .ticks span:nth-child(4)  { transform: rotate(-66deg); }
+            .ticks span:nth-child(5)  { transform: rotate(-48deg); }
+            .ticks span:nth-child(6)  { transform: rotate(-30deg); }
+            .ticks span:nth-child(7)  { transform: rotate(-12deg); }
+            .ticks span:nth-child(8)  { transform: rotate(6deg); }
+            .ticks span:nth-child(9)  { transform: rotate(24deg); }
+            .ticks span:nth-child(10) { transform: rotate(42deg); }
+            .ticks span:nth-child(11) { transform: rotate(60deg); }
+            .ticks span:nth-child(12) { transform: rotate(78deg); }
+            .ticks span:nth-child(13) { transform: rotate(96deg); }
+            .ticks span:nth-child(14) { transform: rotate(114deg); }
+            .ticks span:nth-child(15) { transform: rotate(132deg); }
+
+            /* AKTIVNI (npr. do 22°C = 7 tickova) */
+            .ticks span:nth-child(-n+7){
+                background: #ff5a2c;
+            }
+
+            /* POINTER (zadnji aktivni) */
+            .ticks span:nth-child(7){
+                height: 20px;
+                width: 4px;
+                background: #ff5a2c;
+            }
+
+            .labels{
+                position: absolute; bottom: 0; width: 100%; display: flex; justify-content: center; gap: 48px; font-size: 14px; color: #888;
+            }
+        }
+
+        // Modes
+        .modes-wrapper{
+            position: relative; width: 100%; display: flex; justify-content: space-between; gap: 24px;
+            .mode{
+                position: relative; width: 33%; border: 1px solid rgba(0,0,0,0.1); padding: 8px; border-radius: 4px;
+                display: flex; flex-direction: column; align-items: center; transition: 0.3s all ease-in-out;
+                &.active{
+                    background: $yellow; cursor: pointer; border: 1px solid #ffffff;
+                    p{color: #fff;}
+                    svg{path{fill: #fff;}}
+                }
+                svg{ height: 20px; }
+                p{font-size: 12px;}
+            }
+        }
+
+        // Humidity
+        .humidity-control{
+            width: 100%; display: flex; flex-direction: column; gap: 12px;
+
+            .top{
+                display: flex; justify-content: space-between; font-size: 16px; color: #111;
+                .value{
+                    font-weight: 600;
+                }
+            }
+
+            .slider{
+                position: relative; width: 100%; height: 24px; display: flex; align-items: center;
+
+                .track{
+                    position: absolute; width: 100%; height: 8px; background: #dcdcdc; border-radius: 999px;
+                }
+                .progress{
+                    position: absolute; height: 8px; background: #000; border-radius: 999px; width: 0%; transition: width 0.3s ease;
+                }
+
+                .thumb{
+                    position: absolute; width: 18px; height: 18px; background: #fff; border: 3px solid #000; border-radius: 50%; top: 50%; transform: translate(-50%, -50%); left: 0%; transition: left 0.3s ease;
+                }
+            }
+
+            /* ===== DINAMIKA PREKO KLASE ===== */
+
+            @for $i from 0 through 100 {
+                &.humidity-#{$i} {
+                    .progress{
+                        width: percentage(math.div($i, 100));
+                    }
+                    .thumb{
+                        left: percentage(math.div($i, 100));
+                    }
+                }
+            }
+        }
+
+        // Fan speed
+        .fan-speed-wrapper{
+            position: relative; width: 100%; display: flex; justify-content: space-between; gap: 8px;
+            .speed{
+                position: relative; border-radius: 4px; border: 1px solid rgba(0,0,0,0.1); padding: 4px 16px; flex: 1; justify-content: center;
+                &.active{
+                    background: $yellow; color: #ffffff; border: 1px solid #ffffff;
+                }
+                &:hover{cursor: pointer;}
+            }
+        }
+    }
+
+    // SOS
+    .sos-info{
+     //   position: relative; width: 100%; min-height: 40px; background: #ffffff; border-radius: 4px; display: flex; justify-content: space-between; gap: 24px;
+
+    }
+
+    .sos-info{
+        display: flex; gap: 12px;
+        .mini-alert{
+            flex: 1; height: 72px; background: #ffffff; border-radius: 10px; display: flex; align-items: center; gap: 12px; padding: 12px; border: 1px solid rgba(0,0,0,0.05); transition: 0.2s ease;
+
+            &:hover{
+                transform: translateY(-1px);
+            }
+
+            .icon{
+                width: 42px; height: 42px; border-radius: 10px; background: #f4f4f4; display: flex; align-items: center; justify-content: center; font-size: 16px; color: #666;
+                svg{
+                    height: 24px;
+                    path{fill:#ffffff;}
+                }
+            }
+
+            .content{
+                display: flex; flex-direction: column; flex: 1;
+
+                .title{
+                    font-size: 14px; font-weight: 600; color: #111;
+                }
+                .desc{
+                    font-size: 12px; color: #9aa0a6;
+                }
+            }
+
+            .badge{
+                font-size: 11px; padding: 4px 8px; border-radius: 999px; background: #f1f1f1; color: #777; font-weight: 600;
+            }
+
+            &.active{
+                border-color: rgba(245, 177, 42, 0.3);
+                .icon{
+                    background: #f5b12a; color: #fff;
+                }
+                .badge{
+                    background: rgba(245, 177, 42, 0.15); color: #c07b00;
+                }
+            }
+
+            &.flood.active{
+                border-color: rgba(47, 128, 237, 0.3);
+                .icon{ background: #2f80ed; }
+                .badge{
+                    background: rgba(47, 128, 237, 0.15); color: #2f80ed;
+                }
+            }
+        }
+    }
+}

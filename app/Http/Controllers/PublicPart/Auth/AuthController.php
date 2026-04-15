@@ -61,7 +61,7 @@ class AuthController extends Controller{
                     // 2FA is disabled; Regenerate session, login and redirect
                     $request->session()->regenerate();
                     // Login user
-                    $user = Auth::user();
+                    Auth::login($user);
                     // Log action for basic user
                     $this->logAction($user, 'sign-in', __('Prijava na sistem'));
                     // Redirect to dashboard
@@ -71,7 +71,7 @@ class AuthController extends Controller{
                 // Other users; Regenerate session, login and redirect
                 $request->session()->regenerate();
                 // Login user
-                $user = Auth::user();
+                Auth::login($user);
                 // Log action for basic user
                 $this->logAction($user, 'sign-in', __('Prijava na sistem'));
                 // Redirect to homepage

@@ -1,0 +1,153 @@
+.rooms-wrapper{
+    position: relative; width: 100%; display: flex; min-height: 60px; flex-wrap: wrap; gap: 32px; // padding: 24px;
+    padding-top: 24px;
+
+    .single-room{
+        position: relative; width: calc((100% - (2 * 32px)) / 3); min-height: 50px; background: #ffffff; transition: 0.2s all ease-in-out; border-radius: 4px;
+        padding: 16px; gap: 16px; display: flex; flex-direction: column;
+
+        &:hover{
+            cursor: pointer; background: $yellow;
+        }
+
+        // Room header
+        .room-header{
+            position: relative; width: 100%; display: flex; justify-content: space-between; align-items: center;
+
+            .rh-info{
+                position: relative; display: flex; gap: 8px; align-items: center;
+
+                button{
+                    background: $primary; border: none; color: #fff; border-radius: 4px; padding: 2px 16px; font-size: 14px;
+                }
+                p{
+                    font-weight: bold;
+                }
+            }
+            .rh-icons{
+                svg{
+                    height: 14px;
+                    &.make-up-room{
+                        path{fill: #00EBC1;}
+                    }
+                    &.do-not-disturb{
+                        path{fill: #C84040;}
+                    }
+                }
+            }
+        }
+
+        // Booking info
+        .booking-info{
+            position: relative; width: 100%; display: flex; justify-content: space-between; align-items: center;
+            .bi-user-info{
+                position: relative; display: flex; flex-direction: column; gap: 0px; justify-content: center;
+                h5{
+                    font-size: 16px; font-weight: bold;
+                }
+                p{font-size: 14px;}
+            }
+            .bi-dates{
+                position: relative; display: flex; flex-direction: column; justify-content: center; align-items: flex-end;
+                p{font-size: 12px;}
+            }
+        }
+
+        // Room info
+        .room-info{
+            position: relative; width: 100%; display: flex; justify-content: flex-end; gap: 16px;
+            .ri-element{
+                position: relative; display: flex; align-items: center;
+                p{
+                    font-size: 14px; padding-top: 2px; font-weight: bold;
+                }
+                svg{
+                    height: 16px;
+                }
+            }
+        }
+    }
+}
+
+// Devices wrapper | Inside room
+.devices-wrapper{
+    position: relative; width: 100%; display: flex; min-height: 60px; flex-wrap: wrap; gap: 32px; padding-top: 24px;
+
+    .single-device{
+        position: relative; width: calc((100% - (3 * 32px)) / 4); min-height: 50px; background: #ffffff; transition: 0.2s all ease-in-out; border-radius: 4px;
+        padding: 16px; gap: 16px; display: flex; flex-direction: column;
+
+        &.active{
+            background: $yellow;
+            .sd-header{
+                svg{ path{fill: #ffffff;} }
+                .switch-wrapper{
+                    background: #e3e6ea;
+                    &::after{
+                        left: calc(100% - 24px); background: #333; box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+                    }
+                }
+            }
+            .sd-body{
+                .info{
+                    h6{color: #ffffff;}
+                }
+            }
+        }
+        &:hover{
+            cursor: pointer; // background: $yellow;
+            //.sd-header{
+            //    svg{ path{fill: #ffffff;} }
+            //}
+        }
+
+        // Header
+        .sd-header{
+            position: relative; width: 100%; display: flex; justify-content: space-between; align-items: center;
+            svg{
+                height: 20px;
+            }
+
+            .switch-wrapper{
+                position: relative; width: 56px; height: 24px; border-radius: 999px; background: #e9ecef; cursor: pointer; transition: all 0.25s ease;
+
+                box-shadow: inset 2px 2px 6px rgba(0,0,0,0.08), inset -2px -2px 6px rgba(255,255,255,0.8);
+
+                &::after{
+                    content: ""; position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; border-radius: 50%;
+                    background: linear-gradient(145deg, #f8f9fa, #dcdcdc); transition: all 0.25s ease;
+
+                    box-shadow: 2px 2px 6px rgba(0,0,0,0.15), -2px -2px 6px rgba(255,255,255,0.9);
+                }
+
+                &.active{
+
+                }
+
+                &:hover{
+                    transform: scale(1.03);
+                }
+
+                &:active{
+                    transform: scale(0.96);
+                }
+            }
+        }
+
+        // Body
+        .sd-body{
+            position: relative; width: 100%; display: flex; justify-content: space-between;
+            .info{
+                position: relative; display: flex; justify-content: center; flex-direction: column;
+                h6{
+                    font-size: 18px; font-weight: bold;
+                }
+                p{font-size: 12px; color: grey;}
+            }
+            .power-info{
+                position: relative; display: flex; align-items: center;
+                p{font-weight: bold; text-transform: uppercase;}
+            }
+        }
+    }
+}
