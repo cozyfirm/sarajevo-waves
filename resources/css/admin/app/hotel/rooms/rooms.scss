@@ -73,6 +73,7 @@
 .devices-wrapper{
     position: relative; width: 100%; display: flex; min-height: 60px; flex-wrap: wrap; gap: 24px; padding-top: 24px;
 
+    // Lights
     .single-device{
         position: relative; width: calc((100% - (3 * 24px)) / 4); min-height: 50px; background: #ffffff; transition: 0.2s all ease-in-out; border-radius: 8px;
         padding: 16px; gap: 16px; display: flex; flex-direction: column; border: 1px solid #fff;
@@ -152,6 +153,46 @@
         }
     }
 
+    // Curtains
+    .curtain{
+        position: relative; width: calc(50% - 12px); height: 160px; background: #ffffff; border-radius: 8px; justify-content: space-between;
+        align-items: center; border: 1px solid rgba(0,0,0,0.05); transition: 0.2s ease; display: flex; padding: 16px;
+
+        .c-info{
+            position: relative; display: flex; flex-direction: column; gap: 8px;
+            img{
+                width: 50px;
+            }
+            h4{
+                font-size: 16px; font-weight: bold;
+            }
+        }
+        .c-buttons{
+            position: relative; display: flex; justify-content: space-between; gap: 16px; height: 100%;
+            .curtain-button{
+                position: relative; display: flex; flex-direction: column; gap: 8px; height: 100%; width:60px; background: none;
+                border: 1px solid rgba(0,0,0,0.1); justify-content: center;  transition: 0.2s ease;
+                svg{
+                    height: 40px;
+                }
+                font-size: 14px;
+
+                &:hover{
+                    cursor: pointer; border-color: rgba(245, 177, 42, 0.3);
+                    background: #fffaf2;
+                }
+            }
+        }
+
+        &.right{
+            flex-direction: row-reverse;
+            .c-info{
+                align-items: flex-end;
+            }
+        }
+    }
+
+    // Doors
     .door-card{
         position: relative; background: #ffffff; border-radius: 8px; padding: 16px; display: flex; justify-content: space-between;
         align-items: center; border: 1px solid rgba(0,0,0,0.05); transition: 0.2s ease;  width: calc((100% - (2 * 24px)) / 3);

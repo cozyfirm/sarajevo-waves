@@ -23,6 +23,7 @@
 @section('content')
     <div class="homepage">
         <div class="homepage-main preview">
+            <!-- Lights -->
             <div class="home-row borderless">
                 <div class="home-row-header white">
                     <h4> {{__('RASVJETNA TIJELA')}} </h4>
@@ -56,6 +57,7 @@
                 </div>
             </div>
 
+            <!-- Doors -->
             <div class="home-row borderless">
                 <div class="home-row-header white">
                     <h4> {{__('VRATA I PROZORI')}} </h4>
@@ -112,6 +114,69 @@
                         </div>
 
                         <span class="badge">{{ __('ClOSED') }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Curtains -->
+            <div class="home-row borderless">
+                <div class="home-row-header white">
+                    <h4> {{__('ZAVJESE')}} </h4>
+                    <img src="{{ asset('files/images/icons/curtains.png') }}" alt="{{ __('Curtains') }}">
+                </div>
+
+                <div class="devices-wrapper">
+                    <div class="curtain">
+                        <div class="c-info">
+                            <img src="{{ asset('files/images/icons/curtains.png') }}" alt="{{ __('Curtains') }}">
+                            <h4>{{ __('Left curtains') }}</h4>
+                        </div>
+                        <div class="c-buttons">
+                            <button class="curtain-button">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                                    <path d="M297.4 169.4C309.9 156.9 330.2 156.9 342.7 169.4L534.7 361.4C547.2 373.9 547.2 394.2 534.7 406.7C522.2 419.2 501.9 419.2 489.4 406.7L320 237.3L150.6 406.6C138.1 419.1 117.8 419.1 105.3 406.6C92.8 394.1 92.8 373.8 105.3 361.3L297.3 169.3z"/>
+                                </svg>
+                                {{ __('OPEN') }}
+                            </button>
+                            <button class="curtain-button">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                                    <path d="M176 96C149.5 96 128 117.5 128 144L128 496C128 522.5 149.5 544 176 544L240 544C266.5 544 288 522.5 288 496L288 144C288 117.5 266.5 96 240 96L176 96zM400 96C373.5 96 352 117.5 352 144L352 496C352 522.5 373.5 544 400 544L464 544C490.5 544 512 522.5 512 496L512 144C512 117.5 490.5 96 464 96L400 96z"/>
+                                </svg>
+                                {{ __('STOP') }}
+                            </button>
+                            <button class="curtain-button">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                                    <path d="M297.4 470.6C309.9 483.1 330.2 483.1 342.7 470.6L534.7 278.6C547.2 266.1 547.2 245.8 534.7 233.3C522.2 220.8 501.9 220.8 489.4 233.3L320 402.7L150.6 233.4C138.1 220.9 117.8 220.9 105.3 233.4C92.8 245.9 92.8 266.2 105.3 278.7L297.3 470.7z"/>
+                                </svg>
+                                {{ __('CLOSE') }}
+                            </button>
+                        </div>
+                    </div>
+                    <div class="curtain right">
+                        <div class="c-info">
+                            <img src="{{ asset('files/images/icons/curtains.png') }}" alt="{{ __('Curtains') }}">
+                            <h4>{{ __('Right curtains') }}</h4>
+                        </div>
+                        <div class="c-buttons">
+                            <button class="curtain-button">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                                    <path d="M297.4 169.4C309.9 156.9 330.2 156.9 342.7 169.4L534.7 361.4C547.2 373.9 547.2 394.2 534.7 406.7C522.2 419.2 501.9 419.2 489.4 406.7L320 237.3L150.6 406.6C138.1 419.1 117.8 419.1 105.3 406.6C92.8 394.1 92.8 373.8 105.3 361.3L297.3 169.3z"/>
+                                </svg>
+                                {{ __('OPEN') }}
+                            </button>
+                            <button class="curtain-button">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                                    <path d="M176 96C149.5 96 128 117.5 128 144L128 496C128 522.5 149.5 544 176 544L240 544C266.5 544 288 522.5 288 496L288 144C288 117.5 266.5 96 240 96L176 96zM400 96C373.5 96 352 117.5 352 144L352 496C352 522.5 373.5 544 400 544L464 544C490.5 544 512 522.5 512 496L512 144C512 117.5 490.5 96 464 96L400 96z"/>
+                                </svg>
+                                {{ __('STOP') }}
+                            </button>
+                            <button class="curtain-button">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                                    <path d="M297.4 470.6C309.9 483.1 330.2 483.1 342.7 470.6L534.7 278.6C547.2 266.1 547.2 245.8 534.7 233.3C522.2 220.8 501.9 220.8 489.4 233.3L320 402.7L150.6 233.4C138.1 220.9 117.8 220.9 105.3 233.4C92.8 245.9 92.8 266.2 105.3 278.7L297.3 470.7z"/>
+                                </svg>
+                                {{ __('CLOSE') }}
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
