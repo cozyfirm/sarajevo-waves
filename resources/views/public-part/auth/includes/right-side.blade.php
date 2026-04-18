@@ -1,8 +1,8 @@
 <div class="aw-info-wrapper">
     <div class="aw-info-intro">
         <div class="aw-ii-inner">
-            <h1>{{ __('Cozy Firm d.o.o') }}</h1>
-            <p>{{ __('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent commodo cursus magna vel scelerisque nisl consectetur, sed posuere erat.') }}</p>
+            <img class="logo-image" src="{{ asset('files/images/horizontal-white.png') }}" alt="">
+            <p>{{ __('Ulvix omogućava pametno upravljanje rasvjetom, klimatizacijom, mrežama i potrošnjom energije — sve kroz jedan inteligentni sistem.') }}</p>
         </div>
     </div>
     <div class="aw-info-sites">
@@ -12,7 +12,7 @@
         </div>
         <div class="aw-is-links">
             <a href="" target="_blank"> {{ __('www.cozyfirm.com') }} </a>
-            <a href="" target="_blank"> {{ __('www.support.cozyfirm.com') }} </a>
+            <a href="" target="_blank"> {{ __('www.ulvix.cozyfirm.com') }} </a>
         </div>
     </div>
 </div>
